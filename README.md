@@ -10,7 +10,11 @@ cd ~/cobot_ros2_ws/src/
 
 ### step 2: clone the repository
 ```bash
+#for syncro_5 use the main branch
 git clone https://github.com/HumanoidAddverb/cobot_ros2.git
+
+# if you have heal, switch to heal branch
+git switch heal
 ```
 
 ### Step 3: Copy Backend Folders
@@ -44,4 +48,4 @@ After installation, your directory structure should look like:
 * Refer to the [Setup.md](cobot_ros2/Setup.md) file inside the cobot_ros2 directory to build and configure the ROS2 workspace.
 
 ## To control the robot
-* Instructions for operating the robot are provided in the [README_.md](cobot_ros2/README_.md) file located inside the cobot_ros2 directory.
+* Instructions for operating the robot are provided in the [control.md](cobot_ros2/control.md) file located inside the cobot_ros2 directory.
