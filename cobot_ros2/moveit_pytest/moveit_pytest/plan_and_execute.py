@@ -40,7 +40,7 @@ class MoveItPlanExecuteClient(Node):
             self.get_logger().info('Waiting for /execute_trajectory action server...')
         self.get_logger().info('/execute_trajectory action server available!')
 
-    def plan_to_joint_positions(self, joint_positions, group_name='syncro_5'):
+    def plan_to_joint_positions(self, joint_positions, group_name='heal'):
         request = GetMotionPlan.Request()
         motion_plan_request = MotionPlanRequest()
         motion_plan_request.group_name = group_name
@@ -128,7 +128,7 @@ def main(args=None):
             'joint6': np.clip(random_jpos[5],joint_limits[5][0],joint_limits[5][1]),
         }
 
-        trajectory = node.plan_to_joint_positions(target_positions, group_name='syncro_5')
+        trajectory = node.plan_to_joint_positions(target_positions, group_name='heal')
 
         if trajectory:
             node.get_logger().info(f'Received trajectory with {len(trajectory.joint_trajectory.points)} points')

@@ -55,56 +55,31 @@ namespace ptp_tcp
 
                 addverb_cobot_msgs::msg::CartesianTrajectoryPoint pt;
 // black cobot
-                // pt.point.position.x = -0.000911561;
-                // pt.point.position.y = 0.468131;
-                // pt.point.position.z = 0.5505;
-                // pt.point.orientation.x = 0;
-                // pt.point.orientation.y = 3.14;
-                // pt.point.orientation.x = 0;
-                // pt.time_from_start = 0.05;
-                // goal_msg.trajectory.points[0] = pt;
-
-                // pt.point.position.z = 0.4505;
-                // pt.time_from_start = 15.05;
-                // goal_msg.trajectory.points[1] = pt;
-
-                // pt.point.position.x = -0.4009;
-                // pt.time_from_start = 30.05;
-                // goal_msg.trajectory.points[2] = pt;
-
-                // pt.point.position.x = -0.0009;
-                // pt.time_from_start = 45.05;
-                // goal_msg.trajectory.points[3] = pt;
-
-                // pt.point.position.x = -0.4009;
-                // pt.time_from_start = 60.05;
-                // goal_msg.trajectory.points[4] = pt;
-
-// /white cobot
-                pt.point.position.x = 0.00095306;
-                pt.point.position.y = 0.468059;
-                pt.point.position.z = 0.5385;
+                pt.point.position.x = -0.000911561;
+                pt.point.position.y = 0.468131;
+                pt.point.position.z = 0.5505;
                 pt.point.orientation.x = 0;
-                pt.point.orientation.y = 0;
-                pt.point.orientation.z = 0;
-                pt.time_from_start = 1.5;
+                pt.point.orientation.y = 3.14;
+                pt.point.orientation.x = 0;
+                pt.time_from_start = 0.05;
                 goal_msg.trajectory.points[0] = pt;
 
-                pt.point.position.z = 0.4385;
+                pt.point.position.z = 0.4505;
                 pt.time_from_start = 15.05;
                 goal_msg.trajectory.points[1] = pt;
 
-                pt.point.position.x = -0.399047;
+                pt.point.position.x = -0.4009;
                 pt.time_from_start = 30.05;
                 goal_msg.trajectory.points[2] = pt;
 
-                pt.point.position.x = 0.00095306;
+                pt.point.position.x = -0.0009;
                 pt.time_from_start = 45.05;
                 goal_msg.trajectory.points[3] = pt;
 
-                pt.point.position.x = -0.399047;
+                pt.point.position.x = -0.4009;
                 pt.time_from_start = 60.05;
                 goal_msg.trajectory.points[4] = pt;
+
 
                 auto options = rclcpp_action::Client<FollowCartesianTrajectory>::SendGoalOptions();
                 options.goal_response_callback =

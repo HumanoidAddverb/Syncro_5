@@ -35,14 +35,8 @@ NOTE:
 # HOW TO USE
 ---------------------------------------
 
-There are two supported configurations:
-1. Without gripper 
+    Package name: " heal"
 
-    Package name: " syncro_5_moveit_config"
-
-2. With gripper 
-
-    Package name: " syncro_gripper"
 
 ---------------------------------------
 # 1. Using MoveIt with RViz (Simulation)
@@ -50,11 +44,7 @@ There are two supported configurations:
 
 To run MoveIt in simulation mode with RViz, launch:
 
-    # without gripper
-    ros2 launch syncro_5_moveit_config demo.launch.py
-
-    # with gripper
-    ros2 launch syncro_gripper demo_launch.py
+    ros2 launch heal demo_launch.py
 
 This will start:
 - MoveIt
@@ -67,20 +57,12 @@ This will start:
 
 First, launch MoveIt without simulation:
 
-    # without gripper
-    ros2 launch syncro_5_moveit_config move_group.launch.py
-
-    # with gripper
-    ros2 launch syncro_gripper move_group.launch.py
+    ros2 launch heal move_group.launch.py
 
 To visualize the robot and planning in RViz (optional), open a new terminal
 and run:
 
-    # without gripper
-    ros2 launch syncro_5_moveit_config moveit_rviz.launch.py
-
-    # with gripper
-    ros2 launch syncro_gripper moveit_rviz.launch.py
+    ros2 launch heal moveit_rviz.launch.py
 
 NOTE:
 If the gripper state does not change when toggled:

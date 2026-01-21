@@ -64,27 +64,17 @@ docker run -it --network host --privileged -v ~/robot_network_config:/robot_netw
 4. Build cobot_ros2_ws 
     ```bash
     cd cobot_ros2_ws
-    #for syncro_5 use main branch, for heal switch to heal branch, steps mentioned below.
     colcon build --symlink-install
     source install/setup.bash   
+    ```
+    > **Note:** For Very Low RAM System 'colcon build --symlink-install' command may crash. The command below can be used in such cases.
+    ```bash
+    colcon build \
+    --executor sequential \
+    --cmake-args -DCMAKE_BUILD_PARALLEL_LEVEL=1 \
+    --event-handlers console_direct+
 
-> **Note:** For Very Low RAM System 'colcon build --symlink-install' command may crash. The command below can be used in such cases use the command below
-
-```bash
-colcon build \
---executor sequential \
---cmake-args -DCMAKE_BUILD_PARALLEL_LEVEL=1 \
---event-handlers console_direct+
-```
-
-# To switch branch:
-```bash
-cd ~/cobot_ros2_ws/src/cobot_ros2/
-# to check branch
-git branch
-# to switch branch
-git switch heal
-```
+    ```
 _____________________________________________
 ### Switch between Wifi & ethernet connection
 _______________________________________________

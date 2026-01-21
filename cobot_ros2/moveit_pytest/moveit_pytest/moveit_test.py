@@ -23,7 +23,7 @@ class MoveItPlanClient(Node):
             self.get_logger().info('Waiting for /plan_kinematic_path service...')
         self.get_logger().info('/plan_kinematic_path service available!')
 
-    def plan_to_joint_positions(self, joint_positions, group_name='syncro_5'):
+    def plan_to_joint_positions(self, joint_positions, group_name='heal'):
         """
         joint_positions: dict {joint_name: position_in_radians}
         group_name: name of MoveIt planning group
@@ -81,7 +81,7 @@ def main(args=None):
         'joint6': -0.1,
     }
     
-    trajectory = node.plan_to_joint_positions(target_positions, group_name='syncro_5')
+    trajectory = node.plan_to_joint_positions(target_positions, group_name='heal')
     
     if trajectory:
         node.get_logger().info(f'Received trajectory with {len(trajectory.joint_trajectory.points)} points')

@@ -25,18 +25,10 @@
   </link>
   <link name="link1">
     <inertial>
-      <origin
-        xyz="0.01254 0 0.272"
-        rpy="0 0 0" />
-      <mass
-        value="7.919" />
-      <inertia
-        ixx="0.044879950"
-        ixy="-7.346E-06"
-        ixz="-0.006377064"
-        iyy="0.047389946"
-        iyz="-1.534E-06"
-        izz="0.015930027" />
+      <origin xyz="-0.012435 -2.5345E-05 0.28172" rpy="0 0 0" />
+      <mass value="5.0617" />
+      <inertia ixx="0.011934" ixy="-4.2772E-06" ixz="0.0016521" iyy="0.011427" iyz="3.2849E-06"
+        izz="0.0091785" />
     </inertial>
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
@@ -63,18 +55,10 @@
   </joint>
   <link name="link2">
     <inertial>
-      <origin
-        xyz="0.10537 0 0.14998"
-        rpy="0 0 0" />
-      <mass
-        value="1.017" />
-      <inertia
-        ixx="0.016383576"
-        ixy="0"
-        ixz="5.01E-07"
-        iyy="0.015505423"
-        iyz="8.3217E-06"
-        izz="0.001453264" />
+      <origin xyz="-0.10679 3.7919E-06 0.15236" rpy="0 0 0" />
+      <mass value="1.2353" />
+      <inertia ixx="0.0057954" ixy="3.2114E-08" ixz="3.5658E-06" iyy="0.0048706" iyz="-6.4438E-07"
+        izz="0.0016259" />
     </inertial>
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
@@ -96,23 +80,15 @@
     <origin xyz="0 0 0.346" rpy="0 0 0" />
     <parent link="link1" />
     <child link="link2" />
-    <axis xyz="1 0 0" />
-    <limit lower="-2.05" upper="0.75" effort="150" velocity="1" />
+    <axis xyz="-1 0 0" />
+    <limit lower="-0.75" upper="2.05" effort="150" velocity="1" />
   </joint>
   <link name="link3">
     <inertial>
-      <origin
-        xyz="0.01755 0.03359 0"
-        rpy="0 0 0" />
-      <mass
-        value="5.574" />
-      <inertia
-        ixx="0.021340532"
-        ixy="0.003304844"
-        ixz="-1.2974E-06"
-        iyy="0.009841027"
-        iyz="1.3202E-05"
-        izz="0.023306443" />
+      <origin xyz="-0.017248 0.035025 -2.2087E-05" rpy="0 0 0" />
+      <mass value="3.5577" />
+      <inertia ixx="0.0066247" ixy="-0.00095453" ixz="1.793E-06" iyy="0.0050017" iyz="1.7882E-06"
+        izz="0.0060636" />
     </inertial>
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
@@ -134,23 +110,15 @@
     <origin xyz="0 0 0.305" rpy="0 0 0" />
     <parent link="link2" />
     <child link="link3" />
-    <axis xyz="-1 0 0" />
+    <axis xyz="1 0 0" />
     <limit lower="-1" upper="1" effort="150" velocity="5" />
   </joint>
   <link name="link4">
     <inertial>
-      <origin
-        xyz="0.05065 -0.1059 0"
-        rpy="0 0 0" />
-      <mass
-        value="1.894" />
-      <inertia
-        ixx="0.003626317"
-        ixy="-0.000600942"
-        ixz="2.750E-06"
-        iyy="0.002331370"
-        iyz="3.309E-06"
-        izz="0.004130374" />
+      <origin xyz="-0.047999 -0.10939 4.4809E-05" rpy="0 0 0" />
+      <mass value="1.31" />
+      <inertia ixx="0.0014749" ixy="0.00050231" ixz="1.7564E-06" iyy="0.0016894" iyz="-1.9993E-06"
+        izz="0.0017778" />
     </inertial>
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
@@ -177,18 +145,10 @@
   </joint>
   <link name="link5">
     <inertial>
-      <origin
-        xyz="0.00216 -0.00360 -0.04603"
-        rpy="0 0 0" />
-      <mass
-        value="1.791" />
-      <inertia
-        ixx="0.002516338"
-        ixy="6.5634E-05"
-        ixz="-0.000102333"
-        iyy="0.002442610"
-        iyz="0.000185747"
-        izz="0.001857540" />
+      <origin xyz="-0.0015193 -0.0027725 -0.044032" rpy="0 0 0" />
+      <mass value="1.1965" />
+      <inertia ixx="0.0010777" ixy="-3.7989E-05" ixz="2.9305E-05" iyy="0.0010311" iyz="4.9507E-05"
+        izz="0.0013412" />
     </inertial>
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
@@ -210,7 +170,7 @@
     <origin xyz="0 0 0" rpy="0 0 0" />
     <parent link="link4" />
     <child link="link5" />
-    <axis xyz="-0.5 0.86603 0" />
+    <axis xyz="0.5 0.86603 0" />
     <limit lower="-${pi}" upper="${pi}" effort="80" velocity="1" />
   </joint>
   <link name="end-effector" />
