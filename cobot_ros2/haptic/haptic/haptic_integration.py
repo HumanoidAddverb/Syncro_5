@@ -19,7 +19,8 @@ from std_msgs.msg import Float64MultiArray
 from addverb_cobot_msgs.msg import CartesianPoint
 from haptic_pkg.msg import ReadData, WriteData # from haptic ROS2
 from addverb_cobot_msgs.srv import Gripper
-from haptic.haptic_config import cart, rot, rot_mat , MAX_FORCE_LIMIT, MAX_TORQUE_LIMIT
+from haptic.haptic_config import cart, rot , MAX_FORCE_LIMIT, MAX_TORQUE_LIMIT
+from haptic.haptic_defs import rot_mat
 
 scale_fz=1.0
 scale_fxy=1.0
@@ -33,6 +34,7 @@ def get_scale():
         scale_fz = float(val[1])
         scale_fxy = float(val[2])
         force_val = float(val[3])
+
 threading.Thread(target=get_scale, daemon=True).start()
 
 
@@ -96,21 +98,33 @@ class DemoRPYJog(Node):
         self.jog_val_f=1
         self.jogxy= 1
         self.jogz =1
+        self.calib_count=0
+        self.fx_buffer= []
+        self.fy_buffer= []
+        self.fz_buffer= []
 
         self.weight=1.4*10
         self.com_distance=0.07
-        self.grav= np.array[(0,1,0)]
-        self.ori =np.zeros(3)
+        self.grav= np.array([0,0,-1])
+        self.ori = np.zeros(3)
 
-        self.cobot_force_rot = rot_mat(0, math.pi, -math.pi/4)  # Rotation matrix for force transformation
+        self.ft_offsets = np.zeros(6)
+        self.raw_ft_value= np.zeros(6)
+
+        self.cobot_force_rot = rot_mat(0, math.pi, 0)  # Rotation matrix for force transformation
         self.hap_force_rot=rot_mat(0, 0, -math.pi/4)
 
         self.get_logger().info("Node initialized successfully!")
 
     def ee_pos_callback(self, msg):
-        self.ori[0] = msg.roll
-        self.ori[1] = msg.pitch
-        self.ori[2] = msg.yaw
+        self.ori[0] = msg.orientation.x
+        self.ori[1] = msg.orientation.y
+        self.ori[2] = msg.orientation.z
+
+    def get_ft_offsets(self):
+        self.ft_offsets=self.raw_ft_value
+        self.get_logger().info(f"ft value set ")
+
 
     # Subscriber Callbacks
     def hapdata_callback(self, msg: ReadData):
@@ -130,24 +144,44 @@ class DemoRPYJog(Node):
             msg.torque.y,
             msg.torque.z
         ]
+
+        buffer_size= 2 # increasing this will make the force control responce slower
+        if self.calib_count < buffer_size :
+            self.fx_buffer.append(msg.force.x)
+            self.fy_buffer.append(msg.force.y)
+            self.fz_buffer.append(msg.force.z)
+            self.calib_count+=1
+        else:
+            self.fx_buffer.pop(0)
+            self.fy_buffer.pop(0)
+            self.fz_buffer.pop(0)
+            self.fx_buffer.append(msg.force.x)
+            self.fy_buffer.append(msg.force.y)
+            self.fz_buffer.append(msg.force.z)
+            self.latest_ft_value[0]=sum(self.fx_buffer)/buffer_size
+            self.latest_ft_value[1]=sum(self.fy_buffer)/buffer_size
+            self.latest_ft_value[2]=sum(self.fz_buffer)/buffer_size
+
         ft_data_np = np.array(self.latest_ft_value, dtype=float)
 
         # Split into force and torque parts
         force = ft_data_np[0:3]
         torque = ft_data_np[3:6]
 
-        # dynamic compensation for gravity
-        self.grav_rot=rot_mat(-self.ori[0],-self.ori[1],-self.ori[2])
-        rotated_grav=self.grav_rot @ self.grav
-        comp_torque=self.weight*self.com_distance*np.array[(-rotated_grav[1],rotated_grav[0],0)]
-
         # Rotate both vectors using rotation matrix
-        rotated_force = self.cobot_force_rot @ force - self.weight*rotated_grav
-        rotated_torque = self.cobot_force_rot @ torque - comp_torque
+        rotated_force = self.cobot_force_rot @ force
+        rotated_torque = self.cobot_force_rot @ torque
 
         # Recombine
-        rotated_data = np.hstack((rotated_force, rotated_torque))
-        self.rotated_ft=rotated_data
+        self.raw_ft_value=np.hstack((rotated_force, rotated_torque))
+        self.get_logger().info(f"x {self.raw_ft_value[0]}, y {self.raw_ft_value[1]}, z {self.raw_ft_value[2]}, xx {self.raw_ft_value[3]}, yy {self.raw_ft_value[4]}, zz {self.raw_ft_value[5]}")
+
+        #subtracting offsets
+        rotated_data_offoset = self.raw_ft_value-self.ft_offsets 
+
+        # self.get_logger().info(f"x {rotated_data_ofoset[0]}, y {rotated_data_ofoset[1]}, z {rotated_data_ofoset[2]}, xx {rotated_data_ofoset[3]}, yy {rotated_data_ofoset[4]}, zz {rotated_data_ofoset[5]}")
+        # self.get_logger().info(f"fx {self.ft_offsets[0]}, fy {self.ft_offsets[1]}, fz {self.ft_offsets[2]}, fxx {self.ft_offsets[3]}, fyy {self.ft_offsets[4]}, fzz {self.ft_offsets[5]}")
+        self.rotated_ft=rotated_data_offoset
 
     # Gripper
     def handle_gripper(self):
@@ -191,44 +225,54 @@ class DemoRPYJog(Node):
 
         if touch == 1:
             if grab == 1:
-                if pos[0] > cart[0][0]:
-                    self.linear_dir[0] = self.jog_val
-                elif pos[0] < cart[0][1]:
-                    self.linear_dir[0] = -self.jog_val 
-
-                if pos[1] > cart[1][0]:
-                    self.linear_dir[1] = -self.jog_val
-                elif pos[1] < cart[1][1]:
-                    self.linear_dir[1] = self.jog_val
-
+                for i in range(2):
+                    if pos[i] > cart[i][0]:
+                        self.linear_dir[i] = self.jog_val
+                    elif pos[i] < cart[i][1]:
+                        self.linear_dir[i] = -self.jog_val 
                 if pos[2] < cart[2][0]:
-                    self.linear_dir[2] = self.jog_val
+                        self.linear_dir[2] = self.jog_val
                 elif pos[2] > cart[2][1]:
-                    self.linear_dir[2] = -self.jog_val
+                        self.linear_dir[2] = -self.jog_val 
+
             else:
-                for i in range(3):
-                    if pos[i + 3] > rot[i][0]:
-                        self.angular_dir[i] = self.jog_val
-                    elif pos[i + 3] < rot[i][1]:
-                        self.angular_dir[i] = -self.jog_val
+                if pos[3] > rot[0][0]:
+                    self.angular_dir[1] = self.jog_val
+                elif pos[3] < rot[0][1]:
+                    self.angular_dir[1] = -self.jog_val
+
+                if pos[1] > rot[1][0]:
+                    self.angular_dir[0] = -self.jog_val
+                elif pos[1] < rot[1][1]:
+                    self.angular_dir[0] = self.jog_val
+
+                if pos[5] < rot[2][1]:
+                        self.angular_dir[2] = self.jog_val
+                elif pos[5] > rot[2][0]:
+                    self.angular_dir[2] = -self.jog_val
+
+                self.get_ft_offsets()
+
         elif current_time - self.start_time_b > self.time_thresh_hold:
             if grab == 0:
                 self.handle_gripper()
-            
+
+        force_deadband=(-1.9,  1.9)
+        torque_deadband=(-1.5, 1.5)
         if grab ==1 and self.latest_ft_value:
-            if self.rotated_ft[0] > 1.5 or self.rotated_ft[4]<-0.05:
+            if self.rotated_ft[0] > force_deadband[1] :
                 self.linear_dir[0] = self.jogxy
-            elif self.rotated_ft[0] < -1.5 or self.rotated_ft[4]>0.05:
+            elif self.rotated_ft[0] < force_deadband[0]:
                 self.linear_dir[0] = -self.jogxy
 
-            if self.rotated_ft[1] > 1.5 or self.rotated_ft[3]>0.05:
+            if self.rotated_ft[1] > force_deadband[1] :
                 self.linear_dir[1] = self.jogxy
-            elif self.rotated_ft[1] <  -1.5 or self.rotated_ft[3]<-0.05:
+            elif self.rotated_ft[1] <  force_deadband[0] :
                 self.linear_dir[1] = -self.jogxy
 
-            if self.rotated_ft[2] > 1 :
+            if self.rotated_ft[2] > force_deadband[1] :
                 self.linear_dir[2] = self.jogz
-            elif self.rotated_ft[2] < -1.5 :
+            elif self.rotated_ft[2] < force_deadband[0] :
                 self.linear_dir[2] = -self.jogz
             
 
@@ -277,11 +321,11 @@ class DemoRPYJog(Node):
                 rotated_torque = np.clip(self.hap_force_rot @ torque, -MAX_TORQUE_LIMIT, MAX_TORQUE_LIMIT)
 
                 # Recombine
-                rotated_data = np.hstack((rotated_force, rotated_torque))
+                rotated_data_ofoset = np.hstack((rotated_force, rotated_torque))
 
                 # Publish as WriteData
                 msg = WriteData()
-                msg.force_data = rotated_data
+                msg.force_data = rotated_data_ofoset
                 self.hap_force_pub.publish(msg)
 
             time.sleep(0.01)
