@@ -1,0 +1,174 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="robot">
+
+  <!-- ================= CONSTANTS ================= -->
+  <xacro:property name="pi" value="3.141592653589793"/>
+
+  <!-- ================= MACROS ================= -->
+
+  <!-- Link with inertial + mesh -->
+  <xacro:macro name="cobot_link" params="name mesh mass xyz rpy ixx ixy ixz iyy iyz izz">
+    <link name="${name}">
+      <inertial>
+        <origin xyz="${xyz}" rpy="${rpy}"/>
+        <mass value="${mass}"/>
+        <inertia
+          ixx="${ixx}" ixy="${ixy}" ixz="${ixz}"
+          iyy="${iyy}" iyz="${iyz}" izz="${izz}"/>
+      </inertial>
+
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://addverb_cobot_description/meshes/${mesh}"/>
+        </geometry>
+      </visual>
+
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://addverb_cobot_description/meshes/${mesh}"/>
+        </geometry>
+      </collision>
+    </link>
+  </xacro:macro>
+
+
+  <!-- Revolute joint -->
+  <xacro:macro name="cobot_joint" params="name parent child xyz rpy axis lower upper effort velocity">
+    <joint name="${name}" type="revolute">
+      <origin xyz="${xyz}" rpy="${rpy}"/>
+      <parent link="${parent}"/>
+      <child link="${child}"/>
+      <axis xyz="${axis}"/>
+      <limit lower="${lower}" upper="${upper}" effort="${effort}" velocity="${velocity}"/>
+    </joint>
+  </xacro:macro>
+
+
+  <!-- ================= LINKS ================= -->
+
+  <!-- base_link -->
+  <xacro:cobot_link
+    name="base_link"
+    mesh="base_link.STL"
+    mass="3.729"
+    xyz="0 0 0.019"
+    rpy="0 0 0"
+    ixx="0.016307106" ixy="2.079E-06" ixz="-1.378E-06"
+    iyy="0.016302834" iyz="-4.998E-06" izz="0.022458155"/>
+
+
+  <!-- link1 -->
+  <xacro:cobot_link
+    name="link1"
+    mesh="link1.STL"
+    mass="7.919"
+    xyz="-0.01254 0 0.272"
+    rpy="0 0 0"
+    ixx="0.044879950" ixy="7.346E-06" ixz="0.006377064"
+    iyy="0.047389946" iyz="-1.534E-06" izz="0.015930027"/>
+
+
+  <!-- link2 -->
+  <xacro:cobot_link
+    name="link2"
+    mesh="link2.STL"
+    mass="1.017"
+    xyz="-0.10537 0 0.14998"
+    rpy="0 0 0"
+    ixx="0.016383576" ixy="0" ixz="-5.01E-07"
+    iyy="0.015505423" iyz="8.3217E-06" izz="0.001453264"/>
+
+
+  <!-- link3 -->
+  <xacro:cobot_link
+    name="link3"
+    mesh="link3.STL"
+    mass="5.574"
+    xyz="-0.01755 0.03359 0"
+    rpy="0 0 0"
+    ixx="0.021340532" ixy="-0.003304844" ixz="1.2974E-06"
+    iyy="0.009841027" iyz="1.3202E-05" izz="0.023306443"/>
+
+
+  <!-- link4 -->
+  <xacro:cobot_link
+    name="link4"
+    mesh="link4.STL"
+    mass="1.894"
+    xyz="-0.05065 -0.1059 0"
+    rpy="0 0 0"
+    ixx="0.003626317" ixy="0.000600942" ixz="-2.750E-06"
+    iyy="0.002331370" iyz="3.309E-06" izz="0.004130374"/>
+
+
+  <!-- link5 -->
+  <xacro:cobot_link
+    name="link5"
+    mesh="link5.STL"
+    mass="1.791"
+    xyz="-0.00216 -0.00360 -0.04603"
+    rpy="0 0 0"
+    ixx="0.002516338" ixy="-6.5634E-05" ixz="0.000102333"
+    iyy="0.002442610" iyz="0.000185747" izz="0.001857540"/>
+
+
+  <!-- ================= JOINTS ================= -->
+
+  <xacro:cobot_joint
+    name="joint1"
+    parent="base_link"
+    child="link1"
+    xyz="0 0 0"
+    rpy="0 0 0"
+    axis="0 0 1"
+    lower="-${pi}" upper="${pi}"
+    effort="150" velocity="3"/>
+
+
+  <xacro:cobot_joint
+    name="joint2"
+    parent="link1"
+    child="link2"
+    xyz="0 0 0.346"
+    rpy="0 0 0"
+    axis="-1 0 0"
+    lower="-0.75" upper="2.05"
+    effort="150" velocity="1"/>
+
+
+  <xacro:cobot_joint
+    name="joint3"
+    parent="link2"
+    child="link3"
+    xyz="0 0 0.305"
+    rpy="0 0 0"
+    axis="1 0 0"
+    lower="-1" upper="1"
+    effort="150" velocity="5"/>
+
+
+  <xacro:cobot_joint
+    name="joint4"
+    parent="link3"
+    child="link4"
+    xyz="-0.0009127 0.36813 0"
+    rpy="0 0 0"
+    axis="0 -1 0"
+    lower="-${pi}" upper="${pi}"
+    effort="80" velocity="1"/>
+
+
+  <xacro:cobot_joint
+    name="joint5"
+    parent="link4"
+    child="link5"
+    xyz="0 0 0"
+    rpy="0 0 0"
+    axis="0.5 0.86603 0"
+    lower="-${pi}" upper="${pi}"
+    effort="80" velocity="1"/>
+
+
+</robot>
