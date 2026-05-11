@@ -11,7 +11,7 @@ cd ~/cobot_ros2_ws/src/
 ### step 2: clone the repository
 ```bash
 #for syncro_5 use the main branch
-git clone https://github.com/HumanoidAddverb/cobot_ros2.git
+git clone https://github.com/HumanoidAddverb/Syncro_5.git
 
 # if you have heal, switch to heal branch
 git switch heal
