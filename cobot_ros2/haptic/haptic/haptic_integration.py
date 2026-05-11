@@ -145,7 +145,7 @@ class DemoRPYJog(Node):
             msg.torque.z
         ]
 
-        buffer_size= 2 # increasing this will make the force control responce slower
+        buffer_size= 1 # increasing this will make the force control responce slower
         if self.calib_count < buffer_size :
             self.fx_buffer.append(msg.force.x)
             self.fy_buffer.append(msg.force.y)

@@ -6,15 +6,15 @@
 ### Run the docker container
 Run the following command to resume the container
 ```bash
-sudo ./cobot.sh run
+sudo ./cobot run
 ```
 Or run the following command to create a new container
 ```bash
-sudo ./cobot.sh create
+sudo ./cobot create
 ```
 And if you wish to delete any container, use the following command
 ```bash
-sudo ./cobot.sh remove
+sudo ./cobot remove
 ```
 ## Start Heal Server to connect with the ROS2 SDK
 ```bash

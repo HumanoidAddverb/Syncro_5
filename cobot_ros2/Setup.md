@@ -71,10 +71,8 @@ docker run -it --network host --privileged -v ~/robot_network_config:/robot_netw
 > **Note:** For Very Low RAM System 'colcon build --symlink-install' command may crash. The command below can be used in such cases use the command below
 
 ```bash
-colcon build \
---executor sequential \
---cmake-args -DCMAKE_BUILD_PARALLEL_LEVEL=1 \
---event-handlers console_direct+
+export MAKEFLAGS="-j1"
+colcon build --executor sequential
 ```
 
 # To switch branch:
