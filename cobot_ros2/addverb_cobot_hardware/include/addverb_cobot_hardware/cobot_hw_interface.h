@@ -167,6 +167,12 @@ namespace addverb_cobot
         /// @brief gripper position
         double gripper_pos_;
 
+        /// @brief gripper velocity
+        double gripper_vel_;
+
+        /// @brief gripper effort
+        double gripper_eff_;
+
         /// @brief joint velocity
         std::vector<double> hw_state_jvel_;
 

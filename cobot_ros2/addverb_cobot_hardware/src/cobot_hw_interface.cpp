@@ -287,6 +287,12 @@ namespace addverb_cobot
         
         state_interfaces.emplace_back(hardware_interface::StateInterface(
             "finger_joint", hardware_interface::HW_IF_POSITION, &gripper_pos_));
+        
+        state_interfaces.emplace_back(hardware_interface::StateInterface(
+            "finger_joint", hardware_interface::HW_IF_VELOCITY, &gripper_vel_));
+            
+        state_interfaces.emplace_back(hardware_interface::StateInterface(
+            "finger_joint", hardware_interface::HW_IF_EFFORT, &gripper_eff_));
 
         // register ptp interface
         state_interfaces.emplace_back(hardware_interface::StateInterface(
@@ -1544,6 +1550,8 @@ namespace addverb_cobot
         hw_state_jtor_ = {0, 0, 0, 0, 0, 0};
         hw_ft_feedback_ = {0, 0, 0, 0, 0, 0};
         hw_ee_pos_feedback_ = {0, 0, 0, 0, 0, 0};
+        gripper_vel_ = 0.0;
+        gripper_eff_ = 0.0;
         ptp_state_.reset();
     }
 
@@ -2085,11 +2093,32 @@ namespace addverb_cobot
         robot_state_ = cont.convert_data->robot_state.value();
 
         robot_status_ = 1.0 * (static_cast<int>(robot_state_));
-        if(gripper_cmd_.position==1){
-            gripper_pos_= 0.0;
-        }
-        else{
-            gripper_pos_= 0.725 ;
+
+        // Simulate gripper movement to calculate live velocity
+        double target_gripper_pos = (gripper_cmd_.position == 1) ? 0.0 : 0.725;
+        double diff = target_gripper_pos - gripper_pos_;
+        
+        if (std::abs(diff) > 1e-4) {
+            // Moving
+            if (diff > 0) {
+                gripper_vel_ = 1.0; // Opening
+                gripper_eff_ = 0.5;
+            } else {
+                gripper_vel_ = -1.0; // Closing
+                gripper_eff_ = -0.5;
+            }
+            // Update position (assuming 100Hz update rate -> dt = 0.01s)
+            gripper_pos_ += gripper_vel_ * 0.01;
+            
+            // Prevent overshooting
+            if ((gripper_vel_ > 0 && gripper_pos_ > target_gripper_pos) ||
+                (gripper_vel_ < 0 && gripper_pos_ < target_gripper_pos)) {
+                gripper_pos_ = target_gripper_pos;
+            }
+        } else {
+            // At rest
+            gripper_pos_ = target_gripper_pos;
+            gripper_vel_ = 0.0;
         }
 
         return true;
