@@ -174,7 +174,7 @@ class DemoRPYJog(Node):
 
         # Recombine
         self.raw_ft_value=np.hstack((rotated_force, rotated_torque))
-        self.get_logger().info(f"x {self.raw_ft_value[0]}, y {self.raw_ft_value[1]}, z {self.raw_ft_value[2]}, xx {self.raw_ft_value[3]}, yy {self.raw_ft_value[4]}, zz {self.raw_ft_value[5]}")
+        # self.get_logger().info(f"x {self.raw_ft_value[0]}, y {self.raw_ft_value[1]}, z {self.raw_ft_value[2]}, xx {self.raw_ft_value[3]}, yy {self.raw_ft_value[4]}, zz {self.raw_ft_value[5]}")
 
         #subtracting offsets
         rotated_data_offoset = self.raw_ft_value-self.ft_offsets 
