@@ -79,9 +79,9 @@ private:
         goal_msg.trajectory.points.clear();
 
         
-        add_point({-0.5, 0, 0.3, 0, 0, 0}, 10);
-        add_point({-0.5, 0, 0, 0, 0, 0}, 15);
-        add_point({0, 0, 0, 0, 0, 0}, 20);
+        add_point({-0.5, -0.3, -0.3, 0, 0, 0}, 10);
+        add_point({-0.5, -1.57, -1.57, 0, 0, 0}, 15);
+        add_point({-1.57, -1.57, -1.57, 0, 0, 0}, 20);
         
 
 

@@ -148,7 +148,7 @@ You can run controllers in two methods :
 ```bash
 ros2 run examples <desired demo>
 ```
-Activate the desired controller and replace `<desired demo>` with the one you want to run. The demos could be found in the examples folder. The demos are separated with single arm demos and dual arm demos.
+Activate the desired controller and replace `<desired demo>` with the one you want to run. The demos could be found in the examples folder. The demos are separated with single arm demos and dual arm demos. The dual arm demos start with `dula_arm_<demo_name>`
 
 - **`<desired demo>`** → executable name (e.g., `demo_ptp`).  
 
