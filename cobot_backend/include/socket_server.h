@@ -20,26 +20,28 @@
 #include <unistd.h>
 #include <netinet/tcp.h>
 #include <signal.h>
-#include <iostream>
+#include <iosfwd>
 #include <errno.h>
 #include <sys/time.h>
 #include <poll.h>
 #include <fstream>
-#include <cassert>
 #include <vector>
+#include <cassert>
 #include "socket_config.h"
 
 class SocketServer
 {
 public:
-    inline SocketServer()
+    explicit inline SocketServer(const int &server_idx)
     {
         socket_created_ = false;
+        server_idx_ = server_idx;
+        std::cout<<"recd server_idx_ "<<server_idx_<<std::endl;
     };
 
-    inline ~SocketServer(){};
+    inline ~SocketServer() {};
 
-    /// @brief method for socket craetion
+    /// @brief method for socket creation
     void createSocket();
 
     /// @brief initialisation method for server
@@ -65,20 +67,36 @@ protected:
     /// @brief file descriptor of client
     int client_fd_;
 
+    /// @brief the index of the server
+    int server_idx_;
+
     /// @brief get the server address
     virtual void getServerAddr_();
 
-    /// @brief parse netwrok config file to get ip and port
-    /// @param ip 
-    /// @param port 
-    void parseNetworkConfig_(std::string&ip,int&port);
+    /// @brief parse the network config file
+    /// @param ip
+    /// @param port
+    void parseNetworkConfig_(std::string &ip, int &port);
+
+    /// @brief is valid port
+    /// @param
+    /// @return
+    bool isValidPort_(const std::string &, int &);
+
+    /// @brief is valid IP
+    /// @param
+    /// @return
+    bool isValidIP_(const std::string &);
+
+    /// @brief get the filepath based on the server index
+    /// @param
+    /// @return
+    bool getFilepath(std::string &);
 
 private:
     /// @brief socket creation flag
     /// subsequent connect calls to server socket must accept on the same socket
     bool socket_created_;
-
-
 };
 
 #endif

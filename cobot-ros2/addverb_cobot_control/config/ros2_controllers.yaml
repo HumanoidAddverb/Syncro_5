@@ -1,0 +1,356 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 100  # Hz
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    # REGISTRATION
+    $(var prefix)velocity_controller:
+      type: addverb_cobot_controllers/VelocityController
+    $(var prefix)ptp_joint_controller:
+      type: addverb_cobot_controllers/PTPJointController
+    $(var prefix)free_drive_controller:
+      type: addverb_cobot_controllers/FreeDriveController
+    $(var prefix)ptp_tcp_controller:
+      type: addverb_cobot_controllers/PTPTCPController
+    $(var prefix)recorder_controller:
+      type: addverb_cobot_controllers/RecorderController
+    $(var prefix)joint_jogging_controller:
+      type: addverb_cobot_controllers/JointJoggingController
+    $(var prefix)cartesian_jogging_controller:
+      type: addverb_cobot_controllers/CartesianJoggingController
+    $(var prefix)joint_impedance_controller:
+      type: addverb_cobot_controllers/JointImpedanceController
+    $(var prefix)cartesian_impedance_controller:
+      type: addverb_cobot_controllers/CartesianImpedanceController
+    $(var prefix)gravity_comp_effort_controller:
+      type: addverb_cobot_controllers/GravityCompEffortController
+    $(var prefix)effort_controller:
+      type: addverb_cobot_controllers/EffortController
+    $(var prefix)gripper_controller:
+      type: addverb_cobot_controllers/GripperController
+      
+$(var prefix)velocity_controller:
+  ros__parameters:
+    joints:
+        - $(var prefix)joint1
+        - $(var prefix)joint2
+        - $(var prefix)joint3
+        - $(var prefix)joint4
+        - $(var prefix)joint5
+        - $(var prefix)joint6
+    commands:
+      - $(var prefix)joint1/velocity
+      - $(var prefix)joint2/velocity
+      - $(var prefix)joint3/velocity
+      - $(var prefix)joint4/velocity
+      - $(var prefix)joint5/velocity
+      - $(var prefix)joint6/velocity
+      - $(var prefix)controller_name/velocity
+    states:
+      - $(var prefix)robot_state/state    
+      
+$(var prefix)ptp_joint_controller:
+  ros__parameters:
+    joints:
+      - $(var prefix)joint1
+      - $(var prefix)joint2
+      - $(var prefix)joint3
+      - $(var prefix)joint4
+      - $(var prefix)joint5
+      - $(var prefix)joint6
+    commands:
+      - $(var prefix)joint1/position
+      - $(var prefix)joint2/position
+      - $(var prefix)joint3/position
+      - $(var prefix)joint4/position
+      - $(var prefix)joint5/position
+      - $(var prefix)joint6/position
+      - $(var prefix)time_cmd/time
+      - $(var prefix)ptp_transfer/cmd
+      - $(var prefix)controller_name/ptp_joint
+    states:
+      - $(var prefix)joint1/position
+      - $(var prefix)joint2/position
+      - $(var prefix)joint3/position
+      - $(var prefix)joint4/position
+      - $(var prefix)joint5/position
+      - $(var prefix)joint6/position
+      - $(var prefix)ptp_transfer/state
+      - $(var prefix)robot_state/state
+
+$(var prefix)free_drive_controller:
+  ros__parameters:
+    joints:
+      - $(var prefix)joint1
+      - $(var prefix)joint2
+      - $(var prefix)joint3
+      - $(var prefix)joint4
+      - $(var prefix)joint5
+      - $(var prefix)joint6
+    states:
+      - $(var prefix)joint1/position
+      - $(var prefix)joint2/position
+      - $(var prefix)joint3/position
+      - $(var prefix)joint4/position
+      - $(var prefix)joint5/position
+      - $(var prefix)joint6/position
+      - $(var prefix)robot_state/state
+    commands:
+      - $(var prefix)controller_name/free_drive
+
+
+$(var prefix)ptp_tcp_controller:
+  ros__parameters:
+    joints:
+      - $(var prefix)joint1
+      - $(var prefix)joint2
+      - $(var prefix)joint3
+      - $(var prefix)joint4
+      - $(var prefix)joint5
+      - $(var prefix)joint6
+    commands:
+      - $(var prefix)tcp/x
+      - $(var prefix)tcp/y
+      - $(var prefix)tcp/z
+      - $(var prefix)tcp/r
+      - $(var prefix)tcp/p
+      - $(var prefix)tcp/yaw
+      - $(var prefix)tcp_time_cmd/time
+      - $(var prefix)ptp_tcp_transfer/cmd
+      - $(var prefix)controller_name/ptp_tcp
+    states:
+      - $(var prefix)tcp/x
+      - $(var prefix)tcp/y
+      - $(var prefix)tcp/z
+      - $(var prefix)tcp/r
+      - $(var prefix)tcp/p
+      - $(var prefix)tcp/yaw
+      - $(var prefix)ptp_tcp_transfer/state
+      - $(var prefix)robot_state/state
+
+$(var prefix)recorder_controller:
+  ros__parameters:
+    joints:
+      - $(var prefix)joint1
+      - $(var prefix)joint2
+      - $(var prefix)joint3
+      - $(var prefix)joint4
+      - $(var prefix)joint5
+      - $(var prefix)joint6
+    commands:
+        - $(var prefix)joint1/position
+        - $(var prefix)joint2/position
+        - $(var prefix)joint3/position
+        - $(var prefix)joint4/position
+        - $(var prefix)joint5/position
+        - $(var prefix)joint6/position
+        - $(var prefix)time_cmd/time
+        - $(var prefix)ptp_transfer/cmd
+        - $(var prefix)record_cmd/iterations
+        - $(var prefix)controller_name/recorder
+
+    states:
+        - $(var prefix)joint1/position
+        - $(var prefix)joint2/position
+        - $(var prefix)joint3/position
+        - $(var prefix)joint4/position
+        - $(var prefix)joint5/position
+        - $(var prefix)joint6/position
+        - $(var prefix)ptp_transfer/state
+        - $(var prefix)robot_state/state
+
+    max_recording_rate: 30
+    position_tolerance: 0.001
+    time_tolerance: 15.0
+
+
+      
+$(var prefix)joint_jogging_controller:
+  ros__parameters:
+    joints:
+      - $(var prefix)joint1
+      - $(var prefix)joint2
+      - $(var prefix)joint3
+      - $(var prefix)joint4
+      - $(var prefix)joint5
+      - $(var prefix)joint6
+    commands:
+      - $(var prefix)joint_jogging/joint_1
+      - $(var prefix)joint_jogging/joint_2
+      - $(var prefix)joint_jogging/joint_3
+      - $(var prefix)joint_jogging/joint_4
+      - $(var prefix)joint_jogging/joint_5
+      - $(var prefix)joint_jogging/joint_6
+      - $(var prefix)controller_name/joint_jogging
+    states:
+      - $(var prefix)robot_state/state    
+
+$(var prefix)cartesian_jogging_controller:
+  ros__parameters:
+    joints:
+      - $(var prefix)joint1
+      - $(var prefix)joint2
+      - $(var prefix)joint3
+      - $(var prefix)joint4
+      - $(var prefix)joint5
+      - $(var prefix)joint6
+    commands:
+      - $(var prefix)cartesian_jogging/linear_x
+      - $(var prefix)cartesian_jogging/linear_y
+      - $(var prefix)cartesian_jogging/linear_z
+      - $(var prefix)cartesian_jogging/angular_x
+      - $(var prefix)cartesian_jogging/angular_y
+      - $(var prefix)cartesian_jogging/angular_z
+      - $(var prefix)controller_name/cartesian_jogging
+    states:
+      - $(var prefix)robot_state/state
+
+$(var prefix)joint_impedance_controller:
+  ros__parameters:
+    joints:
+      - $(var prefix)joint1
+      - $(var prefix)joint2
+      - $(var prefix)joint3
+      - $(var prefix)joint4
+      - $(var prefix)joint5
+      - $(var prefix)joint6
+    commands:
+      - $(var prefix)joint1/position
+      - $(var prefix)joint2/position
+      - $(var prefix)joint3/position
+      - $(var prefix)joint4/position
+      - $(var prefix)joint5/position
+      - $(var prefix)joint6/position
+      - $(var prefix)joint_impedance/stiffness_j1
+      - $(var prefix)joint_impedance/stiffness_j2
+      - $(var prefix)joint_impedance/stiffness_j3
+      - $(var prefix)joint_impedance/stiffness_j4
+      - $(var prefix)joint_impedance/stiffness_j5
+      - $(var prefix)joint_impedance/stiffness_j6
+      - $(var prefix)joint_impedance/damping_j1
+      - $(var prefix)joint_impedance/damping_j2
+      - $(var prefix)joint_impedance/damping_j3
+      - $(var prefix)joint_impedance/damping_j4
+      - $(var prefix)joint_impedance/damping_j5
+      - $(var prefix)joint_impedance/damping_j6
+      - $(var prefix)time_cmd/time
+      - $(var prefix)ptp_transfer/cmd
+      - $(var prefix)controller_name/joint_impedance
+    states:
+      - $(var prefix)joint1/position
+      - $(var prefix)joint2/position
+      - $(var prefix)joint3/position
+      - $(var prefix)joint4/position
+      - $(var prefix)joint5/position
+      - $(var prefix)joint6/position
+      - $(var prefix)ptp_transfer/state
+      - $(var prefix)robot_state/state
+
+$(var prefix)cartesian_impedance_controller:
+  ros__parameters:
+    joints:
+      - $(var prefix)joint1
+      - $(var prefix)joint2
+      - $(var prefix)joint3
+      - $(var prefix)joint4
+      - $(var prefix)joint5
+      - $(var prefix)joint6
+    commands:
+      - $(var prefix)joint1/position
+      - $(var prefix)joint2/position
+      - $(var prefix)joint3/position
+      - $(var prefix)joint4/position
+      - $(var prefix)joint5/position
+      - $(var prefix)joint6/position
+      - $(var prefix)cartesian_impedance/stiffness_j1
+      - $(var prefix)cartesian_impedance/stiffness_j2
+      - $(var prefix)cartesian_impedance/stiffness_j3
+      - $(var prefix)cartesian_impedance/stiffness_j4
+      - $(var prefix)cartesian_impedance/stiffness_j5
+      - $(var prefix)cartesian_impedance/stiffness_j6
+      - $(var prefix)cartesian_impedance/damping_j1
+      - $(var prefix)cartesian_impedance/damping_j2
+      - $(var prefix)cartesian_impedance/damping_j3
+      - $(var prefix)cartesian_impedance/damping_j4
+      - $(var prefix)cartesian_impedance/damping_j5
+      - $(var prefix)cartesian_impedance/damping_j6
+      - $(var prefix)cartesian_impedance/mass_matrix_r11
+      - $(var prefix)cartesian_impedance/mass_matrix_r22
+      - $(var prefix)cartesian_impedance/mass_matrix_r33
+      - $(var prefix)cartesian_impedance/mass_matrix_r44
+      - $(var prefix)cartesian_impedance/mass_matrix_r55
+      - $(var prefix)cartesian_impedance/mass_matrix_r66
+      - $(var prefix)cartesian_impedance/ft_force_x
+      - $(var prefix)cartesian_impedance/ft_force_y
+      - $(var prefix)cartesian_impedance/ft_force_z
+      - $(var prefix)cartesian_impedance/ft_torque_x
+      - $(var prefix)cartesian_impedance/ft_torque_y
+      - $(var prefix)cartesian_impedance/ft_torque_z
+      - $(var prefix)cartesian_impedance/target_force_x
+      - $(var prefix)cartesian_impedance/target_force_y
+      - $(var prefix)cartesian_impedance/target_force_z
+      - $(var prefix)cartesian_impedance/target_torque_x
+      - $(var prefix)cartesian_impedance/target_torque_y
+      - $(var prefix)cartesian_impedance/target_torque_z
+      - $(var prefix)time_cmd/time
+      - $(var prefix)ptp_transfer/cmd
+      - $(var prefix)controller_name/cartesian_impedance
+    states:
+      - $(var prefix)joint1/position
+      - $(var prefix)joint2/position
+      - $(var prefix)joint3/position
+      - $(var prefix)joint4/position
+      - $(var prefix)joint5/position
+      - $(var prefix)joint6/position
+      - $(var prefix)ptp_transfer/state
+      - $(var prefix)robot_state/state
+
+$(var prefix)gravity_comp_effort_controller:
+  ros__parameters:
+    joints:
+      - $(var prefix)joint1
+      - $(var prefix)joint2
+      - $(var prefix)joint3
+      - $(var prefix)joint4
+      - $(var prefix)joint5
+      - $(var prefix)joint6
+    commands:
+      - $(var prefix)joint1/effort
+      - $(var prefix)joint2/effort
+      - $(var prefix)joint3/effort
+      - $(var prefix)joint4/effort
+      - $(var prefix)joint5/effort
+      - $(var prefix)joint6/effort
+      - $(var prefix)controller_name/gravity_comp_effort
+    states:
+      - $(var prefix)robot_state/state
+
+$(var prefix)effort_controller:
+  ros__parameters:
+    joints:
+      - $(var prefix)joint1
+      - $(var prefix)joint2
+      - $(var prefix)joint3
+      - $(var prefix)joint4
+      - $(var prefix)joint5
+      - $(var prefix)joint6
+    commands:
+      - $(var prefix)joint1/effort
+      - $(var prefix)joint2/effort
+      - $(var prefix)joint3/effort
+      - $(var prefix)joint4/effort
+      - $(var prefix)joint5/effort
+      - $(var prefix)joint6/effort
+      - $(var prefix)controller_name/effort
+    states:
+      - $(var prefix)robot_state/state
+
+$(var prefix)gripper_controller:
+  ros__parameters:
+    type: addverb_cobot_controllers/GripperController
+    commands:
+      - $(var prefix)gripper/transfer_cmd
+      - $(var prefix)gripper/position
+      - $(var prefix)gripper/grasp_force

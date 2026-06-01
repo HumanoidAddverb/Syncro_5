@@ -1,0 +1,4 @@
+trajectory_execution:
+  allowed_execution_duration_scaling: 1.5 # Default is usually 1.2. Increase to give more leeway.
+  allowed_goal_duration_margin: 1.0       # Default is usually 0.5 seconds. 
+  allowed_start_tolerance: 5.0

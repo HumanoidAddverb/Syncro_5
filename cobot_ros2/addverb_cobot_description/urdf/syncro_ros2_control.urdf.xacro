@@ -1,7 +1,0 @@
-<?xml version="1.0"?>
-<robot name="drdo_dual_arm" xmlns:xacro="http://www.ros.org/wiki/xacro">
-
-  <xacro:include filename="$(find addverb_cobot_description)/urdf/syncro.urdf.xacro"/>
-
-  <xacro:include filename="$(find addverb_cobot_description)/ros2_control/syncro.ros2_control.xacro"/>
-</robot>

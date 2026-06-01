@@ -25,6 +25,7 @@
 #include <fstream>
 #include <cassert>
 #include "socket_config.h"
+#include <iostream>
 
 /**
  * @brief Socket Client for the implementation
@@ -34,10 +35,13 @@
 class SocketClient
 {
 public:
-    inline SocketClient()
+    explicit inline SocketClient(const int& idx)
     {
         sock_fd_ = SOCKET_FD_INIT_VAL;
         socket_created_ = false;
+        server_idx_ = idx;
+
+        std::cout<<"Socket Client for server "<<server_idx_<<std::endl;
     };
 
     inline ~SocketClient() {};
@@ -68,6 +72,9 @@ protected:
     /// @brief port of the server to connect
     int port_;
 
+    /// @brief the index of the server
+    int server_idx_;
+
     /// @brief update the port and IP depending on the server
     virtual void setServerSocket_();
 
@@ -88,6 +95,11 @@ protected:
     /// @param
     /// @return
     bool isValidIP_(const std::string &);
+
+    /// @brief get the filepath based on the server index
+    /// @param
+    /// @return
+    bool getFilepath(std::string &);
 
 private:
     /// @brief socket creation flag

@@ -20,7 +20,7 @@ class SocketServerCommWrapper : public SocketCommWrapper
 {
 public:
     /// @brief ctor
-    SocketServerCommWrapper() {};
+    explicit SocketServerCommWrapper(const int& idx) : SocketCommWrapper(idx){};
 
     /// @brief dtor
     ~SocketServerCommWrapper() {};

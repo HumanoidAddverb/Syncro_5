@@ -23,7 +23,7 @@ class SocketCommWrapperBaseline
 {
 public:
     /// @brief ctor
-    SocketCommWrapperBaseline() {};
+    explicit SocketCommWrapperBaseline(const int& idx) :comm_(idx) {};
 
     /// @brief dtor
     ~SocketCommWrapperBaseline() {};

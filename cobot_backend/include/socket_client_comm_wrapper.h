@@ -19,7 +19,7 @@ class SocketClientCommWrapper : public SocketCommWrapper
 {
 public:
     /// @brief ctor
-    SocketClientCommWrapper() {};
+    explicit SocketClientCommWrapper(const int &idx) : SocketCommWrapper(idx) {};
 
     /// @brief dtor
     ~SocketClientCommWrapper() {};
@@ -58,7 +58,7 @@ private:
             send(this->init_data_);
 
             // std::cout << "init data to send : "
-                    //   << init_data_ << std::endl;
+            //   << init_data_ << std::endl;
 
             attempt_count++;
             std::this_thread::sleep_for(std::chrono::milliseconds(1));

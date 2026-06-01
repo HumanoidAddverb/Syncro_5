@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- ================= MACRO ================= -->
+  <xacro:macro name="dual_arm_table" params="
+      prefix:=''
+      table_length:=2.0
+      table_width:=1.2
+      table_height:=0.01
+      base_distance:=1.1375
+      robot1_parent:=''
+      robot2_parent:=''
+      flip_second:=true">
+
+    <!-- ================= TABLE ================= -->
+    <link name="${prefix}table_link">
+      <visual>
+        <origin xyz="0 0 ${table_height/2}" rpy="0 0 0"/>
+        <geometry>
+          <box size="${table_length} ${table_width} ${table_height}"/>
+        </geometry>
+        <material name="grey">
+          <color rgba="0.6 0.6 0.6 1"/>
+        </material>
+      </visual>
+
+      <collision>
+        <origin xyz="0 0 ${table_height/2}" rpy="0 0 0"/>
+        <geometry>
+          <box size="${table_length} ${table_width} ${table_height}"/>
+        </geometry>
+      </collision>
+    </link>
+  </xacro:macro>
+
+</robot>

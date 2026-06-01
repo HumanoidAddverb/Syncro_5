@@ -30,7 +30,7 @@ class SocketCommunicationJSON : public SocketCommunication<std::string, std::str
 {
 public:
     /// @brief ctor
-    inline SocketCommunicationJSON()
+    explicit inline SocketCommunicationJSON(const int& idx) : SocketCommunication<std::string, std::string, T>(idx)
     {
         fds_[0].events = POLL_IN;
         read_timeout_ = READ_TIMEOUT_SEC;

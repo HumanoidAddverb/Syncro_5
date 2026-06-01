@@ -1,0 +1,5 @@
+
+[submodule "cobot-ui"]
+	path = cobot-ui
+	url = git@gitlab.addverb.com:medical_robotics/cobot-ui.git
+	branch = backend_submodule

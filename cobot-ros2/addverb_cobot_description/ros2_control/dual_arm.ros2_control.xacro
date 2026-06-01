@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:include filename="dual_arm_ros2_config.xacro"/>
+
+    <xacro:macro name="arm_ros2_control" params="arm_names config">
+
+        <ros2_control name="ROS2_System" type="system">
+            
+            <hardware>
+                <plugin>addverb_cobot/CobotHWInterface</plugin>
+                
+                <xacro:arm_hw_params_loop arms_list="${arm_names}" config="${config}"/>
+            </hardware>
+
+            <xacro:arm_interfaces_loop arms_list="${arm_names}" />
+
+        </ros2_control>
+
+    </xacro:macro>
+
+    <xacro:macro name="arm_hw_params_loop" params="arms_list config">
+        <xacro:if value="${len(arms_list) > 0}">
+            
+            <xacro:property name="arm_name" value="${arms_list[0]}"/>
+
+            <xacro:arm_hw_params arm_name="${arm_name}" arm_config="${config[arm_name]}"/>
+
+            <xacro:arm_hw_params_loop arms_list="${arms_list[1:]}" config="${config}" />
+
+        </xacro:if>
+    </xacro:macro>
+
+    <xacro:macro name="arm_interfaces_loop" params="arms_list">
+        <xacro:if value="${len(arms_list) > 0}">
+            
+            <xacro:property name="arm_name" value="${arms_list[0]}"/>
+
+            <xacro:arm_joint_interfaces arm_name="${arm_name}" />
+            <xacro:gpio_interfaces arm_name="${arm_name}" />
+
+            <xacro:arm_interfaces_loop arms_list="${arms_list[1:]}" />
+
+        </xacro:if>
+    </xacro:macro>
+
+</robot>

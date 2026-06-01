@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+
+<!-- XML xacro to make dual arm urdf with ros2 control-->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="dual_syncro_robot">
+
+  <xacro:property name="robot_center_distance" value="1.1375" />
+  <xacro:property name="mounting_height" value="0.005" />
+
+  <xacro:include filename="gripper.xacro"/>
+  <xacro:include filename="table.xacro"/>
+  <xacro:include filename="left_arm.xacro"/>
+  <xacro:include filename="right_arm.xacro"/>
+
+  <!-- Create table -->
+  <xacro:dual_arm_table prefix=""/>
+
+  <!-- Attach arms to table -->
+  <xacro:left_arm prefix="arm_1" parent="table_link" mounting_distance="${-robot_center_distance / 2}" mounting_height="${mounting_height}"/>
+  <xacro:right_arm prefix="arm_2" parent="table_link" mounting_distance="${robot_center_distance / 2}" mounting_height="${mounting_height}"/>
+
+  <!-- Load config -->
+  <xacro:include filename="$(find addverb_cobot_description)/ros2_control/dual_arm.config.xacro"/>
+
+  <!-- Include ros2_control -->
+  <xacro:include filename="$(find addverb_cobot_description)/ros2_control/dual_arm.ros2_control.xacro"/>
+
+  <xacro:property name="arms" value="${['arm_1', 'arm_2']}" />
+
+  <!-- Attach ros2_control -->
+  <xacro:arm_ros2_control
+      arm_names="${list(arms)}"
+      config="${payload_config}"/>
+
+</robot>

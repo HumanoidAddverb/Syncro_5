@@ -1,0 +1,232 @@
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<!-- right arm xacro as per urdf of biped-->
+  <xacro:macro name="right_arm" params="prefix:='' parent mounting_distance:=0.56875 mounting_height:=0.1">
+
+    <link name="${prefix}_base_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+            <mesh filename="package://addverb_cobot_description/meshes_single_robot/base_link.STL" />
+            </geometry>
+            <material name="">
+            <color rgba="0.75294 0.75294 0.75294 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+            <mesh filename="package://addverb_cobot_description/meshes_single_robot/base_link.STL" />
+            </geometry>
+        </collision>
+    </link>
+    <joint name="${prefix}_base_joint" type="fixed">
+        <origin xyz="${mounting_distance} 0 ${mounting_height}" rpy="0 0 0" />
+        <parent link="${parent}" />
+        <child link="${prefix}_base_link" />
+    </joint>
+    <link name="${prefix}_link1">
+        <inertial>
+            <origin
+            xyz="0.01254 0 0.272"
+            rpy="0 0 0" />
+            <mass
+            value="7.919" />
+            <inertia
+            ixx="0.044879950"
+            ixy="-7.346E-06"
+            ixz="-0.006377064"
+            iyy="0.047389946"
+            iyz="-1.534E-06"
+            izz="0.015930027" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+            <mesh filename="package://addverb_cobot_description/meshes_single_robot/link1.STL" />
+            </geometry>
+            <material name="">
+            <color rgba="0.75294 0.75294 0.75294 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+            <mesh filename="package://addverb_cobot_description/meshes_single_robot/link1.STL" />
+            </geometry>
+        </collision>
+    </link>
+    <joint name="${prefix}_joint1" type="revolute">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <parent link="${prefix}_base_link" />
+        <child link="${prefix}_link1" />
+        <axis xyz="0 0 1" />
+        <limit lower="-3.10" upper="3.10" effort="150" velocity="3" />
+    </joint>
+    <link name="${prefix}_link2">
+    <inertial>
+            <origin
+            xyz="0.10537 0 0.14998"
+            rpy="0 0 0" />
+            <mass
+            value="1.017" />
+            <inertia
+            ixx="0.016383576"
+            ixy="0"
+            ixz="5.01E-07"
+            iyy="0.015505423"
+            iyz="8.3217E-06"
+            izz="0.001453264" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+            <mesh filename="package://addverb_cobot_description/meshes_single_robot/link2.STL" />
+            </geometry>
+            <material name="">
+            <color rgba="0.75294 0.75294 0.75294 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+            <mesh filename="package://addverb_cobot_description/meshes_single_robot/link2.STL" />
+            </geometry>
+        </collision>
+    </link>
+    <joint name="${prefix}_joint2" type="revolute">
+        <origin xyz="0 0 0.346" rpy="0 0 0" />
+        <parent link="${prefix}_link1" />
+        <child link="${prefix}_link2" />
+        <axis xyz="1 0 0" />
+        <limit lower="-2.09" upper="2.09" effort="150" velocity="1" />
+    </joint>
+    <link name="${prefix}_link3">
+        <inertial>
+            <origin
+            xyz="0.01755 0.03359 0"
+            rpy="0 0 0" />
+            <mass
+            value="5.574" />
+            <inertia
+            ixx="0.021340532"
+            ixy="0.003304844"
+            ixz="-1.2974E-06"
+            iyy="0.009841027"
+            iyz="1.3202E-05"
+            izz="0.023306443" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+            <mesh filename="package://addverb_cobot_description/meshes_single_robot/link3.STL" />
+            </geometry>
+            <material name="">
+            <color rgba="0.75294 0.75294 0.75294 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+            <mesh filename="package://addverb_cobot_description/meshes_single_robot/link3.STL" />
+            </geometry>
+        </collision>
+    </link>
+    <joint name="${prefix}_joint3" type="revolute">
+        <origin xyz="0 0 0.305" rpy="0 0 0" />
+        <parent link="${prefix}_link2" />
+        <child link="${prefix}_link3" />
+        <axis xyz="-1 0 0" />
+        <limit lower="-3.1" upper="1.3" effort="150" velocity="5" />
+    </joint>
+    <link name="${prefix}_link4">
+        <inertial>
+            <origin
+            xyz="0.05065 -0.1059 0"
+            rpy="0 0 0" />
+            <mass
+            value="1.894" />
+            <inertia
+            ixx="0.003626317"
+            ixy="-0.000600942"
+            ixz="2.750E-06"
+            iyy="0.002331370"
+            iyz="3.309E-06"
+            izz="0.004130374" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+            <mesh filename="package://addverb_cobot_description/meshes_single_robot/link4.STL" />
+            </geometry>
+            <material name="">
+            <color rgba="0.75294 0.75294 0.75294 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+            <mesh filename="package://addverb_cobot_description/meshes_single_robot/link4.STL" />
+            </geometry>
+        </collision>
+    </link>
+    <joint name="${prefix}_joint4" type="revolute">
+        <origin xyz="-0.0009127 0.36813 0" rpy="0 0 0" />
+        <parent link="${prefix}_link3" />
+        <child link="${prefix}_link4" />
+        <axis xyz="0 1 0" />
+        <limit lower="-3.10" upper="3.10" effort="80" velocity="1" />
+    </joint>
+    <link name="${prefix}_link5">
+        <inertial>
+            <origin
+            xyz="0.00216 -0.00360 -0.04603"
+            rpy="0 0 0" />
+            <mass
+            value="1.791" />
+            <inertia
+            ixx="0.002516338"
+            ixy="6.5634E-05"
+            ixz="-0.000102333"
+            iyy="0.002442610"
+            iyz="0.000185747"
+            izz="0.001857540" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+            <mesh filename="package://addverb_cobot_description/meshes_single_robot/link5.STL" />
+            </geometry>
+            <material name="">
+            <color rgba="0.75294 0.75294 0.75294 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+            <mesh filename="package://addverb_cobot_description/meshes_single_robot/link5.STL" />
+            </geometry>
+        </collision>
+    </link>
+    <joint name="${prefix}_joint5" type="revolute">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <parent link="${prefix}_link4" />
+        <child link="${prefix}_link5" />
+        <axis xyz="-0.5 0.86603 0" />
+        <limit lower="-3.10" upper="3.10" effort="80" velocity="1" />
+    </joint>
+    <link name="${prefix}_end-effector" />
+
+    <joint name="${prefix}_joint6" type="revolute">
+        <origin xyz="0 0 -0.0975" rpy="0 0 0" />
+        <parent link="${prefix}_link5" />
+        <child link="${prefix}_end-effector" />
+        <axis xyz="0 0 -1" />
+        <limit lower="-${pi}" upper="${pi}" effort="80" velocity="1" />
+    </joint>
+    <xacro:robotiq_85_gripper
+      prefix="${prefix}_gripper"
+      parent="${prefix}_end-effector"/>
+  </xacro:macro>
+
+</robot>

@@ -1,0 +1,17 @@
+# Default initial positions for dual_syncro_robot's ros2_control fake system
+
+initial_positions:
+  arm_1_gripper_finger_joint: 0
+  arm_1_joint1: 0
+  arm_1_joint2: 0
+  arm_1_joint3: 0
+  arm_1_joint4: 0
+  arm_1_joint5: 0
+  arm_1_joint6: 0
+  arm_2_gripper_finger_joint: 0
+  arm_2_joint1: 0
+  arm_2_joint2: 0
+  arm_2_joint3: 0
+  arm_2_joint4: 0
+  arm_2_joint5: 0
+  arm_2_joint6: 0

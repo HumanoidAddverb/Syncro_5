@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+
+<!--This XML is to read the parameters from the config folder in addverb_cobot_control-->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+      <xacro:property name="payload_config_path" value="$(find addverb_cobot_control)/config/payload_config_dual_arm.yaml" />
+      <xacro:property name="payload_config" value="${xacro.load_yaml(payload_config_path)}" />
+</robot>

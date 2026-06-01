@@ -1,0 +1,86 @@
+# This config file is used by ros2_control
+controller_manager:
+  ros__parameters:
+    update_rate: 100  # Hz
+
+    dual_arm_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+
+    left_arm_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+
+    right_arm_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+
+    left_gripper_controller:
+      type: position_controllers/GripperActionController
+
+
+    right_gripper_controller:
+      type: position_controllers/GripperActionController
+
+
+    dual_grippers:
+      type: position_controllers/GripperActionController
+
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+dual_arm_controller:
+  ros__parameters:
+    joints:
+      - arm_1_joint1
+      - arm_1_joint2
+      - arm_1_joint3
+      - arm_1_joint4
+      - arm_1_joint5
+      - arm_1_joint6
+      - arm_2_joint1
+      - arm_2_joint2
+      - arm_2_joint3
+      - arm_2_joint4
+      - arm_2_joint5
+      - arm_2_joint6
+    command_interfaces:
+      []
+    state_interfaces:
+      []
+left_arm_controller:
+  ros__parameters:
+    joints:
+      - arm_1_joint1
+      - arm_1_joint2
+      - arm_1_joint3
+      - arm_1_joint4
+      - arm_1_joint5
+      - arm_1_joint6
+    command_interfaces:
+      []
+    state_interfaces:
+      []
+right_arm_controller:
+  ros__parameters:
+    joints:
+      - arm_2_joint1
+      - arm_2_joint2
+      - arm_2_joint3
+      - arm_2_joint4
+      - arm_2_joint5
+      - arm_2_joint6
+    command_interfaces:
+      []
+    state_interfaces:
+      []
+left_gripper_controller:
+  ros__parameters:
+    joint: arm_1_gripper_finger_joint
+right_gripper_controller:
+  ros__parameters:
+    joint: arm_2_gripper_finger_joint
+dual_grippers:
+  ros__parameters:
+    joint: arm_1_gripper_finger_joint

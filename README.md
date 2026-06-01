@@ -1,4 +1,4 @@
-# Cobot Installation Instructions
+# Cobot Dual Arm Setup Installation Instructions
 
 ## Installation Steps
 
@@ -10,11 +10,9 @@ cd ~/cobot_ros2_ws/src/
 
 ### step 2: clone the repository
 ```bash
-#for syncro_5 use the main branch
 git clone https://github.com/HumanoidAddverb/Syncro_5.git
 
-# if you have heal, switch to heal branch
-git switch heal
+git switch dual_arm
 ```
 
 ### Step 3: Copy Backend Folders

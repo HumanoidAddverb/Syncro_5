@@ -21,7 +21,7 @@ class SocketCommWrapper : public SocketCommWrapperBaseline<std::string, std::str
 {
 public:
     /// @brief ctor
-    SocketCommWrapper()
+    explicit SocketCommWrapper(const int& idx) : SocketCommWrapperBaseline<std::string, std::string>(idx)
     {
         leftover_exists_ = false;
         file_transfer_alert_ = false;

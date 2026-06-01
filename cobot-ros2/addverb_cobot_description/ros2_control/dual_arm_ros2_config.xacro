@@ -1,0 +1,309 @@
+<?xml version="1.0"?>
+
+<!--This XML is to read the parameters from the config folder in addverb_cobot_control-->
+    <!-- cobot_arm_hw_params.xacro -->
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:macro name="arm_hw_params" params="arm_name arm_config">
+            
+        <param name="${arm_name}.safety_type"> ${arm_config['safety_type']} </param>
+
+        <param name="${arm_name}.payload_status"> ${arm_config['payload_status']} </param>
+
+        <param name="${arm_name}.payload_mass">
+            ${arm_config['payload_mass']}
+        </param>
+
+        <param name="${arm_name}.payload_comx">
+            ${arm_config['payload_com']['x']}
+        </param>
+
+        <param name="${arm_name}.payload_comy">
+            ${arm_config['payload_com']['y']}
+        </param>
+
+        <param name="${arm_name}.payload_comz">
+            ${arm_config['payload_com']['z']}
+        </param>
+
+        <param name="${arm_name}.payload_ixx">
+            ${arm_config['payload_moi']['Ixx']}
+        </param>
+
+        <param name="${arm_name}.payload_iyy">
+            ${arm_config['payload_moi']['Iyy']}
+        </param>
+
+        <param name="${arm_name}.payload_izz">
+            ${arm_config['payload_moi']['Izz']}
+        </param>
+
+        <param name="${arm_name}.payload_ixy">
+            ${arm_config['payload_moi']['Ixy']}
+        </param>
+
+        <param name="${arm_name}.payload_ixz">
+            ${arm_config['payload_moi']['Ixz']}
+        </param>
+
+        <param name="${arm_name}.payload_iyz">
+            ${arm_config['payload_moi']['Iyz']}
+        </param>
+
+        <param name="${arm_name}.gripper_type">
+            ${arm_config['gripper_type']}
+        </param>
+
+        <param name="${arm_name}.ft_type">
+            ${arm_config['ft_type']}
+        </param>
+
+        <param name="${arm_name}.ft_rot_r11">
+            ${arm_config['ft_rot']['R1'][0]}
+        </param>
+        <param name="${arm_name}.ft_rot_r12">
+            ${arm_config['ft_rot']['R1'][1]}
+        </param>
+        <param name="${arm_name}.ft_rot_r13">
+            ${arm_config['ft_rot']['R1'][2]}
+        </param>
+
+        <param name="${arm_name}.ft_rot_r21">
+            ${arm_config['ft_rot']['R2'][0]}
+        </param>
+        <param name="${arm_name}.ft_rot_r22">
+            ${arm_config['ft_rot']['R2'][1]}
+        </param>
+        <param name="${arm_name}.ft_rot_r23">
+            ${arm_config['ft_rot']['R2'][2]}
+        </param>
+
+        <param name="${arm_name}.ft_rot_r31">
+            ${arm_config['ft_rot']['R3'][0]}
+        </param>
+        <param name="${arm_name}.ft_rot_r32">
+            ${arm_config['ft_rot']['R3'][1]}
+        </param>
+        <param name="${arm_name}.ft_rot_r33">
+            ${arm_config['ft_rot']['R3'][2]}
+        </param>
+    </xacro:macro>
+
+    <xacro:macro name="arm_joint_interfaces" params="arm_name"> 
+
+        <joint name="${arm_name}_joint1">
+            <command_interface name="position" />
+            <command_interface name="velocity" />
+            <command_interface name="effort" />
+            <state_interface name="position" />
+            <state_interface name="velocity" />
+            <state_interface name="effort" />
+        </joint>
+
+        <joint name="${arm_name}_joint2">
+            <command_interface name="position" />
+            <command_interface name="velocity" />
+            <command_interface name="effort" />
+
+            <state_interface name="position" />
+            <state_interface name="velocity" />
+            <state_interface name="effort" />
+        </joint>
+
+        <joint name="${arm_name}_joint3">
+            <command_interface name="position" />
+            <command_interface name="velocity" />
+            <command_interface name="effort" />
+
+            <state_interface name="position" />
+            <state_interface name="velocity" />
+            <state_interface name="effort" />
+        </joint>
+
+        <joint name="${arm_name}_joint4">
+            <command_interface name="position" />
+            <command_interface name="velocity" />
+            <command_interface name="effort" />
+
+            <state_interface name="position" />
+            <state_interface name="velocity" />
+            <state_interface name="effort" />
+        </joint>
+
+        <joint name="${arm_name}_joint5">
+            <command_interface name="position" />
+            <command_interface name="velocity" />
+            <command_interface name="effort" />
+
+            <state_interface name="position" />
+            <state_interface name="velocity" />
+            <state_interface name="effort" />
+        </joint>
+
+        <joint name="${arm_name}_joint6">
+            <command_interface name="position" />
+            <command_interface name="velocity" />
+            <command_interface name="effort" />
+
+            <state_interface name="position" />
+            <state_interface name="velocity" />
+            <state_interface name="effort" />
+        </joint>
+
+        <joint name="${arm_name}_gripper_finger_joint">
+            <state_interface name="position" />
+            <state_interface name="velocity" />
+            <state_interface name="effort" />    
+        </joint>
+
+    </xacro:macro>
+
+    <xacro:macro name="gpio_interfaces" params="arm_name">
+          <!-- GPIO 0 -->
+        <gpio name="${arm_name}_time_cmd">
+            <command_interface name="time" />
+        </gpio>
+
+        <!-- GPIO 1 -->
+        <gpio name="${arm_name}_ptp_transfer">
+            <command_interface name="cmd" />
+            <state_interface name="state" />
+        </gpio>
+
+        <!-- GPIO 2 -->
+        <gpio name="${arm_name}_record_cmd">
+            <command_interface name="iterations" />
+        </gpio>
+
+        <!-- GPIO 3 -->
+        <gpio name="${arm_name}_tcp_time_cmd">
+            <command_interface name="time" />
+        </gpio>
+
+        <!-- GPIO 4 -->
+        <gpio name="${arm_name}_ptp_tcp_transfer">
+            <command_interface name="cmd" />
+            <state_interface name="state" />
+        </gpio>
+
+        <!-- GPIO 5 -->
+        <gpio name="${arm_name}_tcp">
+            <command_interface name="x" />
+            <command_interface name="y" />
+            <command_interface name="z" />
+            <command_interface name="r" />
+            <command_interface name="p" />
+            <command_interface name="yaw" />
+
+
+            <state_interface name="x" />
+            <state_interface name="y" />
+            <state_interface name="z" />
+            <state_interface name="r" />
+            <state_interface name="p" />
+            <state_interface name="yaw" />
+        </gpio>
+
+        <!-- GPIO -->
+        <!-- <gpio name="flex">
+            <command_interface name="factor" />
+        </gpio> -->
+
+        <!-- GPIO 6 -->
+        <gpio name="${arm_name}_joint_jogging">
+            <command_interface name="joint_1" />
+            <command_interface name="joint_2" />
+            <command_interface name="joint_3" />
+            <command_interface name="joint_4" />
+            <command_interface name="joint_5" />
+            <command_interface name="joint_6" />
+        </gpio>
+
+        <!-- GPIO 7 -->
+        <gpio name="${arm_name}_cartesian_jogging">
+            <command_interface name="linear_x" />
+            <command_interface name="linear_y" />
+            <command_interface name="linear_z" />
+            <command_interface name="angular_x" />
+            <command_interface name="angular_y" />
+            <command_interface name="angular_z" />
+        </gpio>
+
+        <!-- GPIO 8 -->
+        <gpio name="${arm_name}_joint_impedance">
+            <command_interface name="stiffness_j1" />
+            <command_interface name="stiffness_j2" />
+            <command_interface name="stiffness_j3" />
+            <command_interface name="stiffness_j4" />
+            <command_interface name="stiffness_j5" />
+            <command_interface name="stiffness_j6" />
+            <command_interface name="damping_j1" />
+            <command_interface name="damping_j2" />
+            <command_interface name="damping_j3" />
+            <command_interface name="damping_j4" />
+            <command_interface name="damping_j5" />
+            <command_interface name="damping_j6" />
+        </gpio>
+
+        <!-- GPIO 9 -->
+        <gpio name="${arm_name}_cartesian_impedance">
+            <command_interface name="stiffness_j1" />
+            <command_interface name="stiffness_j2" />
+            <command_interface name="stiffness_j3" />
+            <command_interface name="stiffness_j4" />
+            <command_interface name="stiffness_j5" />
+            <command_interface name="stiffness_j6" />
+            <command_interface name="damping_j1" />
+            <command_interface name="damping_j2" />
+            <command_interface name="damping_j3" />
+            <command_interface name="damping_j4" />
+            <command_interface name="damping_j5" />
+            <command_interface name="damping_j6" />
+            <command_interface name="mass_matrix_r11" />
+            <command_interface name="mass_matrix_r22" />
+            <command_interface name="mass_matrix_r33" />
+            <command_interface name="mass_matrix_r44" />
+            <command_interface name="mass_matrix_r55" />
+            <command_interface name="mass_matrix_r66" />
+            <command_interface name="ft_force_x" />
+            <command_interface name="ft_force_y" />
+            <command_interface name="ft_force_z" />
+            <command_interface name="ft_torque_x" />
+            <command_interface name="ft_torque_y" />
+            <command_interface name="ft_torque_z" />
+            <command_interface name="target_force_x" />
+            <command_interface name="target_force_y" />
+            <command_interface name="target_force_z" />
+            <command_interface name="target_torque_x" />
+            <command_interface name="target_torque_y" />
+            <command_interface name="target_torque_z" />
+        </gpio>
+
+        <!-- GPIO 10 -->
+        <gpio name="${arm_name}_controller_name">
+            <command_interface name="ptp_joint" />
+            <command_interface name="free_drive" />
+            <command_interface name="recorder" />
+            <command_interface name="joint_jogging" />
+            <command_interface name="cartesian_jogging" />
+            <command_interface name="joint_impedance" />
+            <command_interface name="cartesian_impedance" />
+            <command_interface name="ptp_tcp" />
+            <command_interface name="gravity_comp_effort"/>
+            <command_interface name="velocity"/>
+            <command_interface name="effort"/>
+        </gpio>
+
+        <!-- GPIO 11 -->
+        <gpio name="${arm_name}_robot_state">
+            <state_interface name="state" />
+        </gpio>
+
+        <!-- GPIO 12 -->
+        <gpio name="${arm_name}_gripper">
+            <command_interface name="transfer_cmd"/>
+            <command_interface name="position"/>
+            <command_interface name="grasp_force"/>
+        </gpio>
+    </xacro:macro>
+</robot>

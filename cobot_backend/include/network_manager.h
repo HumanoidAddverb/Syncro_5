@@ -29,7 +29,7 @@ class NetworkManager
 {
 public:
     /// @brief ctor
-    inline NetworkManager()
+    explicit inline NetworkManager(const int& idx) : net_comm_(idx)
     {
         is_peer_connected_ = false;
         net_flag_ = false;
@@ -55,7 +55,7 @@ public:
         comm_func_ = nullptr;
         net_flag_ = true;
 
-        // will initialize the thread for continous read/write.
+        // will initialize the thread for continuous read/write.
 
         {
             if (net_thread_.joinable())
@@ -179,6 +179,8 @@ public:
         {
             setNetworkFlag_(false);
         }
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
 
         if (getNetworkFlag_())
         {

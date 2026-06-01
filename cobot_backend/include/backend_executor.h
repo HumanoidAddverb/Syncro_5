@@ -29,6 +29,8 @@
 #define CENTRE_Y 0.00
 #define TUBE_TH 0.04
 
+#define ROBOT_IDX 0
+
 #include <memory>
 #include <algorithm>
 #include <map>
@@ -84,7 +86,7 @@ class BackendExecutor
 {
 public:
     /// @brief ctor
-    BackendExecutor()
+    BackendExecutor() : handler_(ROBOT_IDX)
     {
         expect_connection_ = false;
         fetch_task_status_ = false;

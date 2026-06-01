@@ -1,0 +1,10 @@
+moveit_setup_assistant_config:
+  urdf:
+    package: addverb_cobot_description
+    relative_path: urdf/dual_arm_syncro/dual_arm.xacro
+  srdf:
+    relative_path: config/dual_syncro_robot.srdf
+  package_settings:
+    author_name: Samarth Jain
+    author_email: samarth.jain@addverb.com
+    generated_timestamp: 1780296441

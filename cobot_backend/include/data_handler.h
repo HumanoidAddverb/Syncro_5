@@ -30,11 +30,19 @@ enum class UIDataType
     eControlData,
     eEventData
 };
+
 class DataHandler
 {
 public:
     /// @brief ctor
-    DataHandler() {};
+    explicit DataHandler(const int &idx) : net_(idx) {};
+
+    // Allow the compiler to generate the move constructor
+    DataHandler(DataHandler &&) = default;
+    DataHandler &operator=(DataHandler &&) = default;
+
+    // If you don't want copies, you can delete them
+    DataHandler(const DataHandler &) = delete;
 
     /// @brief dtor
     ~DataHandler() {};

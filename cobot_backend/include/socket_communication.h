@@ -20,7 +20,7 @@
 #include <iosfwd>
 #include "socket_config.h"
 
-// templated with the 
+// templated with the
 // transmission data-type = Tx
 // receiving data-type = Rx
 // underlying object to send/recv data = T (Client/Server) in this case
@@ -28,7 +28,7 @@ template <typename Tx, typename Rx, class T>
 class SocketCommunication
 {
 public:
-    inline SocketCommunication()
+    explicit inline SocketCommunication(const int &idx) : worker_(idx)
     {
         sock_fd_ = SOCKET_FD_INIT_VAL;
     };
@@ -92,15 +92,15 @@ public:
     }
 
     /// @brief return if data is available to read on the socket
-    /// @return 
+    /// @return
     virtual bool isDataAvailable()
     {
         return true;
     }
 
     /// @brief set the read timeout for the socket operations
-    /// @param  
-    /// @return 
+    /// @param
+    /// @return
     virtual bool setReadTimeout(const int)
     {
         return true;
