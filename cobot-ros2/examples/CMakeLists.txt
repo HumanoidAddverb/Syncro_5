@@ -79,6 +79,9 @@ ament_target_dependencies(save_waypoints rclcpp rclcpp_action rclcpp_components 
 add_executable(demo_pick_and_place src/dual_arm/demo_pick_and_place.cpp)
 ament_target_dependencies(demo_pick_and_place rclcpp rclcpp_action rclcpp_components addverb_cobot_msgs control_msgs geometry_msgs)
 
+add_executable(go_to_home src/dual_arm/go_to_home.cpp)
+ament_target_dependencies(go_to_home rclcpp rclcpp_action rclcpp_components addverb_cobot_msgs control_msgs geometry_msgs trajectory_msgs)
+
 ############## PTP 
 add_library(ptp_demo_client SHARED src/demo_ptp_joint.cpp)
 ament_target_dependencies(ptp_demo_client
@@ -152,6 +155,7 @@ install(TARGETS
   dual_arm_recorder_test
   save_waypoints
   demo_pick_and_place
+  go_to_home
   DESTINATION lib/${PROJECT_NAME})
 
 install(TARGETS

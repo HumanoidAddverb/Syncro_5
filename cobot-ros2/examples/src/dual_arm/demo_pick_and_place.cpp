@@ -40,18 +40,7 @@ public:
         // --- Joint PTP Clients ---
         arm1_joint_client_ = rclcpp_action::create_client<FollowJointTrajectory>(
             this, "/arm_1_ptp_joint_controller/follow_joint_trajectory");
-        // arm2_joint_client_ = rclcpp_action::create_client<FollowJointTrajectory>(
-        //     this, "/arm_2_ptp_joint_controller/follow_joint_trajectory");
-
-        // // --- Cartesian TCP Clients ---
-        // arm1_cartesian_client_ = rclcpp_action::create_client<FollowCartesianTrajectory>(
-        //     this, "/arm_1_ptp_tcp_controller/follow_cartesian_trajectory");
-        // arm2_cartesian_client_ = rclcpp_action::create_client<FollowCartesianTrajectory>(
-        //     this, "/arm_2_ptp_tcp_controller/follow_cartesian_trajectory");
-
-        // // --- Joint Impedance Clients ---
-        // arm1_impedance_client_ = rclcpp_action::create_client<FollowJointTrajectory>(
-        //     this, "/arm_1_joint_impedance_controller/follow_joint_trajectory");
+       
         arm2_impedance_client_ = rclcpp_action::create_client<FollowJointTrajectory>(
             this, "/arm_2_joint_impedance_controller/follow_joint_trajectory");
 
@@ -60,10 +49,9 @@ public:
         arm2_gripper_client_ = this->create_client<GripperSrv>("/arm_2_gripper_controller/command");
 
         // --- Declare Impedance Parameters ---
-        std::vector<double> stiffness = {100, 100, 100, 100, 100, 100};
-        std::vector<double> damping   = {2.5, 2.5, 2.5, 2.5, 2.5, 2.5};
-        // this->declare_parameter("arm_1_joint_impedance_controller.stiffness", stiffness);
-        // this->declare_parameter("arm_1_joint_impedance_controller.damping", damping);
+        std::vector<double> stiffness = {300, 300, 300, 300, 300, 300};
+        std::vector<double> damping   = {7.5, 7.5, 7.5, 7.5, 7.5, 7.5};
+      
         this->declare_parameter("arm_2_joint_impedance_controller.stiffness", stiffness);
         this->declare_parameter("arm_2_joint_impedance_controller.damping", damping);
         RCLCPP_INFO(this->get_logger(), "Impedance controller parameters declared.");
@@ -73,10 +61,6 @@ public:
         // ==========================================
         RCLCPP_INFO(this->get_logger(), "Waiting for all action and service servers...");
         arm1_joint_client_->wait_for_action_server();
-        // arm2_joint_client_->wait_for_action_server();
-        // arm1_cartesian_client_->wait_for_action_server();
-        // arm2_cartesian_client_->wait_for_action_server();
-        // arm1_impedance_client_->wait_for_action_server();
         arm2_impedance_client_->wait_for_action_server();
         arm1_gripper_client_->wait_for_service();
         arm2_gripper_client_->wait_for_service();
@@ -175,45 +159,6 @@ private:
         return sendJointTrajectory(client, arm_name, waypoints, segment_durations_sec, "Impedance");
     }
 
-    // // Move using Cartesian TCP Trajectory
-    // bool moveCartesian(const std::string& arm_name, const addverb_cobot_msgs::msg::CartesianPoint& target_pose, double duration_sec)
-    // {
-    //     auto client = (arm_name == "arm_1") ? arm1_cartesian_client_ : arm2_cartesian_client_;
-        
-    //     FollowCartesianTrajectory::Goal goal_msg;
-    //     addverb_cobot_msgs::msg::CartesianTrajectoryPoint pt;
-        
-    //     pt.point = target_pose;
-    //     pt.time_from_start = duration_sec;
-    //     goal_msg.trajectory.points.push_back(pt);
-
-    //     RCLCPP_INFO(this->get_logger(), "[%s] Sending Cartesian TCP goal...", arm_name.c_str());
-
-    //     auto send_goal_options = rclcpp_action::Client<FollowCartesianTrajectory>::SendGoalOptions();
-    //     auto goal_handle_future = client->async_send_goal(goal_msg, send_goal_options);
-
-    //     if (goal_handle_future.wait_for(5s) != std::future_status::ready) {
-    //         RCLCPP_ERROR(this->get_logger(), "[%s] Cartesian goal rejected.", arm_name.c_str());
-    //         return false;
-    //     }
-
-    //     auto goal_handle = goal_handle_future.get();
-    //     if (!goal_handle) return false;
-
-    //     auto result_future = client->async_get_result(goal_handle);
-    //     if (result_future.wait_for(std::chrono::seconds(static_cast<int>(duration_sec) + 5)) != std::future_status::ready) {
-    //         RCLCPP_ERROR(this->get_logger(), "[%s] Cartesian execution timed out.", arm_name.c_str());
-    //         return false;
-    //     }
-
-    //     auto result = result_future.get();
-    //     if (result.code == rclcpp_action::ResultCode::SUCCEEDED) {
-    //         RCLCPP_INFO(this->get_logger(), "[%s] Cartesian movement succeeded.", arm_name.c_str());
-    //         return true;
-    //     }
-    //     return false;
-    // }
-
     // Synchronous function to operate the gripper
     bool controlGripper(const std::string& arm_name, bool open, double force = 50.0)
     {
@@ -264,7 +209,7 @@ private:
         };
 
         // Define the time to reach each waypoint from the previous one
-        std::vector<double> a1_approach_times = {10.0, 10.0, 10.0, 10.0};
+        std::vector<double> a1_approach_times = {5.0, 5.0, 5.0, 5.0};
 
         // Send the entire continuous trajectory
         moveJoints("arm_1", a1_approach_wps, a1_approach_times);
@@ -287,7 +232,7 @@ private:
             {-0.572462, -0.627152, 0.0256324, -1.32623, -0.829294, -0.161644} // Handover Pose
 
         };
-        std::vector<double> a1_lift_times = {10.0, 10.0, 10.0, 10.0};
+        std::vector<double> a1_lift_times = {5.0, 5.0, 5.0, 5.0};
 
         moveJoints("arm_1", a1_lift_wps, a1_lift_times);
 
@@ -329,8 +274,7 @@ private:
         // Move Arm 1 out of the way first
         moveJoints("arm_1", home, std::vector<double>{10.0});
         // Move Arm 2 away
-        // moveJoints("arm_2", home, std::vector<double>{10.0});
-        moveImpedance("arm_2", home, std::vector<double>{10.0});
+        moveImpedance("arm_2", home, std::vector<double>{20.0});
         controlGripper("arm_2", true, 50.0);
 
         RCLCPP_INFO(this->get_logger(), "--- DEMO COMPLETE ---");
@@ -339,8 +283,6 @@ private:
     // --- Members ---
     rclcpp_action::Client<FollowJointTrajectory>::SharedPtr arm1_joint_client_;
     rclcpp_action::Client<FollowJointTrajectory>::SharedPtr arm2_joint_client_;
-    // rclcpp_action::Client<FollowCartesianTrajectory>::SharedPtr arm1_cartesian_client_;
-    // rclcpp_action::Client<FollowCartesianTrajectory>::SharedPtr arm2_cartesian_client_;
     rclcpp_action::Client<FollowJointTrajectory>::SharedPtr arm1_impedance_client_;
     rclcpp_action::Client<FollowJointTrajectory>::SharedPtr arm2_impedance_client_;
     

@@ -2,7 +2,7 @@ arm_1: #left_arm
   payload_status: 1
   gripper_type: 4
   payload_mass: 1.4
-  safety_type: 2
+  safety_type: 1
 
   payload_com:
     x: 0.0
@@ -28,7 +28,7 @@ arm_2: #right_arm
   payload_status: 1
   gripper_type: 4
   payload_mass: 1.4
-  safety_type: 2
+  safety_type: 1
 
   payload_com:
     x: 0.0

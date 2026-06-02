@@ -79,15 +79,8 @@ private:
         goal_msg.trajectory.points.clear();
 
         
-        add_point({-0.5, -0.3, -0.3, 0, 0, 0}, 10);
-        add_point({-0.5, 0, -1.57, 0, 0, 0}, 15);
-        add_point({-1.57, 0, -1.57, 0, 0, 0}, 20);
+        add_point({0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, 10);
         
-
-
-
-        
-
         return goal_msg;
     }
 
@@ -101,7 +94,6 @@ private:
         // Wait for both servers
         if (!client_arm1_->wait_for_action_server(std::chrono::seconds(5)) ||
             !client_arm2_->wait_for_action_server(std::chrono::seconds(5)))
-        // if (!client_arm2_->wait_for_action_server(std::chrono::seconds(5)))
         {
             RCLCPP_ERROR(this->get_logger(), "One or both action servers not available");
             rclcpp::shutdown();
@@ -193,5 +185,15 @@ private:
 };
 
 } // namespace ptp
+int main(int argc, char ** argv)
+{
+    rclcpp::init(argc, argv);
 
-RCLCPP_COMPONENTS_REGISTER_NODE(ptp::DualArmPTPClient)
+    auto node = std::make_shared<ptp::DualArmPTPClient>(
+        rclcpp::NodeOptions());
+
+    rclcpp::spin(node);
+
+    rclcpp::shutdown();
+    return 0;
+}

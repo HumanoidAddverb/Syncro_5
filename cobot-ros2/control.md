@@ -22,9 +22,9 @@ And if you wish to delete any container, use the following command
 ```bash
 sudo ./cobot.sh remove
 ```
-## Start Heal Server to connect with the ROS2 SDK
+## Start Cobot Server to connect with the ROS2 SDK
 ```bash
-./heal_server
+./cobot_server
 ```
 ------------------------------------------------
 
@@ -226,15 +226,15 @@ sudo chmod a+rwx /opt/addverb/recorded_scripts/
 
 ***Start recording***
 ```bash
-ros2 service call /arm_1_recorder_controller/record_mode addverb_cobot_msgs/srv/Record "{enable: true,label: "test",rate: 50}"
+ros2 service call /arm_1_recorder_controller/recorder_controller/record_mode addverb_cobot_msgs/srv/Record "{enable: true,label: "test",rate: 50}"
 ```
 ***Stop recording***
 ```bash
-ros2 service call /arm_1_recorder_controller/record_mode addverb_cobot_msgs/srv/Record "{enable: false,label: "test",rate: 50}"
+ros2 service call /arm_1_recorder_controller/recorder_controller/record_mode addverb_cobot_msgs/srv/Record "{enable: false,label: "test",rate: 50}"
 ```
 ***Replay recording***
 ```bash
-ros2 action send_goal /arm_1_recorder_controller/replay_mode addverb_cobot_msgs/action/Replay "{label : "test", iterations: 3}"
+ros2 action send_goal /arm_1_recorder_controller/recorder_controller/replay_mode addverb_cobot_msgs/action/Replay "{label : "test", iterations: 3}"
 ```
 ### Gripper Service
 

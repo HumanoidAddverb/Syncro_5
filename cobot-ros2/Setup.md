@@ -23,9 +23,9 @@ Run the following command or use the cobot.sh script.
 docker run -it --network host --privileged -v ~/robot_network_config:/robot_network_config --tty --volume /dev:/dev <image_name>:<tag_name>
 
 ```
-## Start Heal Server to connect with the ROS2 SDK
+## Start Cobot Server to connect with the ROS2 SDK
 ```bash
-./heal_server
+./cobot_server
 ```
 ------------------------------------------------
 ## User System Setup
