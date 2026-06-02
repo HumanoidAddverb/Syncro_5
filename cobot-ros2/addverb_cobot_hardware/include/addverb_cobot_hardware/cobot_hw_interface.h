@@ -248,6 +248,8 @@ namespace addverb_cobot
         /// @brief vector of gripper effort states of the system exposed to state interface
         std::vector<double> gripper_effort_state_;
 
+        /// @brief vector of recorder state to hold if controller have been switched
+        std::vector<uint8_t> recorder_state_;
 
         /// @brief replay command received from replay controller
         std::array<double, 3> replaycmd_ = {0, 0, 0};
@@ -412,8 +414,6 @@ namespace addverb_cobot
         /// @brief has valid effort command
         bool has_valid_effort_command_;
 
-        /// @brief recorder switched
-        bool recorder_switched_ = false;
 
         /// @brief buffer time (for moveit)
         double buffer_time_ = 1e-2;

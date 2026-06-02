@@ -941,7 +941,7 @@ namespace addverb_cobot
             robot_effort_controller_status_map_.at(robot_index) = addverb_cobot::effortControllerStatus::eInactive;
             // effortcmd_.fill(0.0);
 
-            recorder_switched_ = false;
+            recorder_state_.at(robot_index) = 0;
 
             success &= handleFwdRequest_(req, cont, robot_index);
         }
@@ -968,7 +968,7 @@ namespace addverb_cobot
         robot_effort_controller_status_map_.at(robot_index) = addverb_cobot::effortControllerStatus::eInactive;
         // effortcmd_.fill(0.0);
 
-        recorder_switched_ = false;
+        recorder_state_.at(robot_index) = 0;
 
         success = handleFwdRequest_(req, cont, robot_index);
         
@@ -1845,6 +1845,8 @@ namespace addverb_cobot
         gripper_velocity_state_.resize(num_grippers_, 0.0);
         gripper_effort_state_.resize(num_grippers_, 0.0);
 
+        recorder_state_.resize(arm_index_.size(), 0);
+
     }
 
     /**
@@ -2250,7 +2252,7 @@ namespace addverb_cobot
             API api = API::ePlayRecAPI;
 
             updateController_(api, robot_index);
-            recorder_switched_ = false;
+            recorder_state_.at(robot_index) = 0;
 
             if (!switchController_(robot_index))
             {
@@ -2276,7 +2278,7 @@ namespace addverb_cobot
         {
             robot_state.ptp_state_.transfer_state = static_cast<double>(TransferState::eIdling);
 
-            if (!recorder_switched_)
+            if (recorder_state_.at(robot_index) == 0)
             {
                 API api = API::eFreeDriveAPI;
                 updateController_(api, robot_index);
@@ -2287,7 +2289,7 @@ namespace addverb_cobot
                     return false;
                 }
 
-                recorder_switched_ = true;
+                recorder_state_.at(robot_index) = 1;
             }
         }
 
