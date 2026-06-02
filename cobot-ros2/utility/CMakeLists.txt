@@ -11,7 +11,7 @@ find_package(addverb_cobot_msgs REQUIRED)
 
 include_directories(include)
 
-set(COBOT_UI_BACKEND_DIR /opt/addverb/cobot_backend)
+set(COBOT_UI_BACKEND_DIR /opt/addverb/dual_arm_backend)
 
 
 function(glob_files GLOB_PATTERN OUTPUT_VAR)

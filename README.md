@@ -20,14 +20,14 @@ git switch dual_arm
 Move the backend folders to the installation directory:
 ```bash
 sudo mkdir -p /opt/addverb/
-sudo cp -r cobot_backend /opt/addverb/
+sudo cp -r dual_arm_backend /opt/addverb/
 ```
 
 > **Note:** `sudo` privileges are required to write to `/opt/addverb/`
 
-### step 4: (OPTIONAL) Delete the cobot_backend folder from the cobot_ros2_ws 
+### step 4: (OPTIONAL) Delete the dual_arm_backend folder from the cobot_ros2_ws 
 ```bash
-rm -rf ~/cobot_ros2_ws/src/cobot_ros2/cobot_backend
+rm -rf ~/cobot_ros2_ws/src/cobot_ros2/dual_arm_backend
 ``` 
 
 
@@ -36,7 +36,7 @@ rm -rf ~/cobot_ros2_ws/src/cobot_ros2/cobot_backend
 After installation, your directory structure should look like:
 ```
 /opt/addverb/
-└── cobot_backend/
+└── dual_arm_backend/
 
 ~/cobot_ros2_ws/
 └── src/

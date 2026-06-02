@@ -53,10 +53,10 @@ docker run -it --network host --privileged -v ~/robot_network_config:/robot_netw
     sudo chmod a+rwx /opt/addverb/recorded_scripts/
     ```
 4. Backend for cobot ROS2:
-    Paste the cobot_backend folder such that it looks like:
+    Paste the dual_arm_backend folder such that it looks like:
     ```bash
     /opt/addverb/
-            └── cobot_backend/
+            └── dual_arm_backend/
     ```
 4. Build cobot_ros2_ws 
     ```bash
@@ -92,8 +92,8 @@ _______________________________________________
 
 
 # On user PC
-/opt/addverb/cobot_backend/ip_left.csv
-/opt/addverb/cobot_backend/ip_right.csv
+/opt/addverb/dual_arm_backend/ip_left.csv
+/opt/addverb/dual_arm_backend/ip_right.csv
 
 
 ```

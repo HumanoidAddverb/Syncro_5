@@ -7,7 +7,7 @@ endif()
 
 find_package(utility REQUIRED)
 
-set(COBOT_UI_BACKEND_DIR /opt/addverb/cobot_backend)
+set(COBOT_UI_BACKEND_DIR /opt/addverb/dual_arm_backend)
 
 
 

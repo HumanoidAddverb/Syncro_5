@@ -34,7 +34,7 @@ set(THIS_PACKAGE_INCLUDE_DEPENDS
   std_srvs
 )
 
-set(COBOT_UI_BACKEND_DIR /opt/addverb/cobot_backend)
+set(COBOT_UI_BACKEND_DIR /opt/addverb/dual_arm_backend)
 
 
 
