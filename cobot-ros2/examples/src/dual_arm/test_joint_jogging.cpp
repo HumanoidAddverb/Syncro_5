@@ -32,7 +32,7 @@ public:
         // Start keyboard thread
         keyboard_thread_ = std::thread(&DualArmJogging::keyboardLoop, this);
 
-        RCLCPP_INFO(this->get_logger(), "Press keys 1-%d to move joints in position direction.", num_joints_);
+        RCLCPP_INFO(this->get_logger(), "Press keys 1-%d to move joints in positive direction.", num_joints_);
         RCLCPP_INFO(this->get_logger(), "Press keys q, w, e, r, t, y to move joints in negative direction.", num_joints_);
 
     }

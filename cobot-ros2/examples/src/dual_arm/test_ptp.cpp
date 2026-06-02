@@ -86,7 +86,7 @@ private:
             pt.point.position.z = start_pose.position.z;
 
             pt.point.orientation = start_pose.orientation;
-            pt.time_from_start = 3.0 + i * 1.0;
+            pt.time_from_start = 5.0 + i * 5.0;
 
             goal_msg.trajectory.points[i] = pt;
         }
