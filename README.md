@@ -45,6 +45,7 @@ After installation, your directory structure should look like:
     └── cobot_ros2/
 ```
 ## To set up ROS2 work space
+* Dockerfile is proveide with all the dependencies installed for ROS2
 * Refer to the [Setup.md](cobot_ros2/Setup.md) file inside the cobot_ros2 directory to build and configure the ROS2 workspace.
 
 ## To control the robot

@@ -9,7 +9,7 @@ endif()
 find_package(ament_cmake REQUIRED)
 
 install(
-  DIRECTORY launch urdf meshes rviz ros2_control
+  DIRECTORY launch urdf heal_meshes rviz ros2_control syncro_meshes
   DESTINATION share/${PROJECT_NAME}
 )
 

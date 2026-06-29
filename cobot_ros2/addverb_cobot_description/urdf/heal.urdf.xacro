@@ -10,7 +10,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://addverb_cobot_description/meshes/base_link.STL" />
+        <mesh filename="package://addverb_cobot_description/heal_meshes/base_link.STL" />
       </geometry>
       <material name="">
         <color rgba="0.75294 0.75294 0.75294 1" />
@@ -19,7 +19,7 @@
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://addverb_cobot_description/meshes/base_link.STL" />
+        <mesh filename="package://addverb_cobot_description/heal_meshes/base_link.STL" />
       </geometry>
     </collision>
   </link>
@@ -41,7 +41,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://addverb_cobot_description/meshes/link1.STL" />
+        <mesh filename="package://addverb_cobot_description/heal_meshes/link1.STL" />
       </geometry>
       <material name="">
         <color rgba="0.75294 0.75294 0.75294 1" />
@@ -50,7 +50,7 @@
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://addverb_cobot_description/meshes/link1.STL" />
+        <mesh filename="package://addverb_cobot_description/heal_meshes/link1.STL" />
       </geometry>
     </collision>
   </link>
@@ -79,7 +79,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://addverb_cobot_description/meshes/link2.STL" />
+        <mesh filename="package://addverb_cobot_description/heal_meshes/link2.STL" />
       </geometry>
       <material name="">
         <color rgba="0.75294 0.75294 0.75294 1" />
@@ -88,7 +88,7 @@
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://addverb_cobot_description/meshes/link2.STL" />
+        <mesh filename="package://addverb_cobot_description/heal_meshes/link2.STL" />
       </geometry>
     </collision>
   </link>
@@ -117,7 +117,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://addverb_cobot_description/meshes/link3.STL" />
+        <mesh filename="package://addverb_cobot_description/heal_meshes/link3.STL" />
       </geometry>
       <material name="">
         <color rgba="0.75294 0.75294 0.75294 1" />
@@ -126,7 +126,7 @@
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://addverb_cobot_description/meshes/link3.STL" />
+        <mesh filename="package://addverb_cobot_description/heal_meshes/link3.STL" />
       </geometry>
     </collision>
   </link>
@@ -155,7 +155,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://addverb_cobot_description/meshes/link4.STL" />
+        <mesh filename="package://addverb_cobot_description/heal_meshes/link4.STL" />
       </geometry>
       <material name="">
         <color rgba="0.75294 0.75294 0.75294 1" />
@@ -164,7 +164,7 @@
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://addverb_cobot_description/meshes/link4.STL" />
+        <mesh filename="package://addverb_cobot_description/heal_meshes/link4.STL" />
       </geometry>
     </collision>
   </link>
@@ -193,7 +193,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://addverb_cobot_description/meshes/link5.STL" />
+        <mesh filename="package://addverb_cobot_description/heal_meshes/link5.STL" />
       </geometry>
       <material name="">
         <color rgba="0.75294 0.75294 0.75294 1" />
@@ -202,7 +202,7 @@
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <mesh filename="package://addverb_cobot_description/meshes/link5.STL" />
+        <mesh filename="package://addverb_cobot_description/heal_meshes/link5.STL" />
       </geometry>
     </collision>
   </link>
@@ -244,7 +244,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://addverb_cobot_description/meshes/robotiq_85_base_link_fine.STL" />
+          filename="package://addverb_cobot_description/heal_meshes/robotiq_85_base_link_fine.STL" />
       </geometry>
       <material
         name="">
@@ -258,7 +258,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://addverb_cobot_description/meshes/robotiq_85_base_link_coarse.STL" />
+          filename="package://addverb_cobot_description/heal_meshes/robotiq_85_base_link_coarse.STL" />
       </geometry>
     </collision>
   </link>
@@ -290,7 +290,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://addverb_cobot_description/meshes/outer_knuckle_fine.STL" />
+          filename="package://addverb_cobot_description/heal_meshes/outer_knuckle_fine.STL" />
       </geometry>
       <material
         name="">
@@ -304,7 +304,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://addverb_cobot_description/meshes/outer_knuckle_coarse.STL" />
+          filename="package://addverb_cobot_description/heal_meshes/outer_knuckle_coarse.STL" />
       </geometry>
     </collision>
   </link>
@@ -348,7 +348,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://addverb_cobot_description/meshes/outer_finger_fine.STL" />
+          filename="package://addverb_cobot_description/heal_meshes/outer_finger_fine.STL" />
       </geometry>
       <material
         name="">
@@ -362,7 +362,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://addverb_cobot_description/meshes/outer_finger_coarse.STL" />
+          filename="package://addverb_cobot_description/heal_meshes/outer_finger_coarse.STL" />
       </geometry>
     </collision>
   </link>
@@ -401,7 +401,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://addverb_cobot_description/meshes/inner_knuckle_fine.STL" />
+          filename="package://addverb_cobot_description/heal_meshes/inner_knuckle_fine.STL" />
       </geometry>
       <material
         name="">
@@ -415,7 +415,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://addverb_cobot_description/meshes/inner_knuckle_coarse.STL" />
+          filename="package://addverb_cobot_description/heal_meshes/inner_knuckle_coarse.STL" />
       </geometry>
     </collision>
   </link>
@@ -463,7 +463,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://addverb_cobot_description/meshes/inner_finger_fine.STL" />
+          filename="package://addverb_cobot_description/heal_meshes/inner_finger_fine.STL" />
       </geometry>
       <material
         name="">
@@ -477,7 +477,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://addverb_cobot_description/meshes/inner_finger_coarse.STL" />
+          filename="package://addverb_cobot_description/heal_meshes/inner_finger_coarse.STL" />
       </geometry>
     </collision>
   </link>
@@ -525,7 +525,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://addverb_cobot_description/meshes/inner_knuckle_fine.STL" />
+          filename="package://addverb_cobot_description/heal_meshes/inner_knuckle_fine.STL" />
       </geometry>
       <material
         name="">
@@ -539,7 +539,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://addverb_cobot_description/meshes/inner_knuckle_coarse.STL" />
+          filename="package://addverb_cobot_description/heal_meshes/inner_knuckle_coarse.STL" />
       </geometry>
     </collision>
   </link>
@@ -587,7 +587,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://addverb_cobot_description/meshes/inner_finger_fine.STL" />
+          filename="package://addverb_cobot_description/heal_meshes/inner_finger_fine.STL" />
       </geometry>
       <material
         name="">
@@ -601,7 +601,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://addverb_cobot_description/meshes/inner_finger_coarse.STL" />
+          filename="package://addverb_cobot_description/heal_meshes/inner_finger_coarse.STL" />
       </geometry>
     </collision>
   </link>
@@ -649,7 +649,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://addverb_cobot_description/meshes/outer_knuckle_fine.STL" />
+          filename="package://addverb_cobot_description/heal_meshes/outer_knuckle_fine.STL" />
       </geometry>
       <material
         name="">
@@ -663,7 +663,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://addverb_cobot_description/meshes/outer_knuckle_coarse.STL" />
+          filename="package://addverb_cobot_description/heal_meshes/outer_knuckle_coarse.STL" />
       </geometry>
     </collision>
   </link>
@@ -711,7 +711,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://addverb_cobot_description/meshes/outer_finger_fine.STL" />
+          filename="package://addverb_cobot_description/heal_meshes/outer_finger_fine.STL" />
       </geometry>
       <material
         name="">
@@ -725,7 +725,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://addverb_cobot_description/meshes/outer_finger_coarse.STL" />
+          filename="package://addverb_cobot_description/heal_meshes/outer_finger_coarse.STL" />
       </geometry>
     </collision>
   </link>

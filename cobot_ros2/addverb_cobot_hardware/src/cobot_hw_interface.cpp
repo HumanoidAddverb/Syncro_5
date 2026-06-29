@@ -286,13 +286,13 @@ namespace addverb_cobot
         // Register gripper interface
         
         state_interfaces.emplace_back(hardware_interface::StateInterface(
-            "finger_joint", hardware_interface::HW_IF_POSITION, &gripper_pos_));
+            "gripper_finger_joint", hardware_interface::HW_IF_POSITION, &gripper_pos_));
         
         state_interfaces.emplace_back(hardware_interface::StateInterface(
-            "finger_joint", hardware_interface::HW_IF_VELOCITY, &gripper_vel_));
+            "gripper_finger_joint", hardware_interface::HW_IF_VELOCITY, &gripper_vel_));
             
         state_interfaces.emplace_back(hardware_interface::StateInterface(
-            "finger_joint", hardware_interface::HW_IF_EFFORT, &gripper_eff_));
+            "gripper_finger_joint", hardware_interface::HW_IF_EFFORT, &gripper_eff_));
 
         // register ptp interface
         state_interfaces.emplace_back(hardware_interface::StateInterface(
@@ -2095,7 +2095,7 @@ namespace addverb_cobot
         robot_status_ = 1.0 * (static_cast<int>(robot_state_));
 
         // Simulate gripper movement to calculate live velocity
-        double target_gripper_pos = (gripper_cmd_.position == 1) ? 0.0 : 0.725;
+        double target_gripper_pos = (gripper_cmd_.position == 1) ? -1.1 : 0.28;
         double diff = target_gripper_pos - gripper_pos_;
         
         if (std::abs(diff) > 1e-4) {

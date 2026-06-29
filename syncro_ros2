@@ -1,0 +1,184 @@
+#!/bin/bash
+# ============================================================
+# Script: start ros2
+# Unified CLI for managing cobot Docker containers
+# Usage: cobot create | cobot run | cobot remove
+# ============================================================
+
+IMAGE_NAME="syncro_ros2"
+TAG_NAME="humble"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# ------------------------------------------------------------
+# Function: Build Docker image from Dockerfile
+# ------------------------------------------------------------
+build_image() {
+    local DOCKERFILE
+    DOCKERFILE=$(find "${SCRIPT_DIR}" -maxdepth 2 -name "Dockerfile" | head -1)
+
+    if [ -z "${DOCKERFILE}" ]; then
+        echo "❌ No Dockerfile found under ${SCRIPT_DIR}."
+        exit 1
+    fi
+
+    local DOCKERFILE_DIR
+    DOCKERFILE_DIR="$(dirname "${DOCKERFILE}")"
+    echo "Building Docker image '${IMAGE_NAME}:${TAG_NAME}' from ${DOCKERFILE}..."
+    docker build -t "${IMAGE_NAME}:${TAG_NAME}" -f "${DOCKERFILE}" "${DOCKERFILE_DIR}" || { echo "❌ Failed to build image."; exit 1; }
+}
+
+# ------------------------------------------------------------
+# Function: Create new container
+# ------------------------------------------------------------
+create_new_container() {
+    echo
+    read -p "Enter a name for the new container : " CONTAINER_NAME
+
+    # Build image if missing
+    if ! docker images --format '{{.Repository}}:{{.Tag}}' | grep -q "^${IMAGE_NAME}:${TAG_NAME}$"; then
+        build_image
+    fi
+
+    # Create container
+    echo "Starting new container '${CONTAINER_NAME}'..."
+
+xhost +local:docker
+
+docker run -it \
+    --name "${CONTAINER_NAME}" \
+    --network host \
+    --privileged \
+    --tty \
+    -e DISPLAY=$DISPLAY \
+    -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
+    --volume /dev:/dev \
+    --volume ~/cobot_ros2_ws:/cobot_ros2_ws \
+    --volume /opt/addverb:/opt/addverb \
+    "${IMAGE_NAME}:${TAG_NAME}"
+
+    echo "Container '${CONTAINER_NAME}' exited."
+}
+
+# ------------------------------------------------------------
+# Function: Resume existing container
+# ------------------------------------------------------------
+run_container() {
+    CONTAINERS=($(docker ps -a --format '{{.Names}}'))
+    if [ ${#CONTAINERS[@]} -eq 0 ]; then
+        echo "No containers found. Run 'start_ros2 create' first."
+        exit 1
+    fi
+
+    echo "Available containers:"
+    for i in "${!CONTAINERS[@]}"; do
+        echo "  [$((i+1))] ${CONTAINERS[$i]}"
+    done
+
+    read -p "Select container number: " SELECTION
+
+    if ! [[ "$SELECTION" =~ ^[0-9]+$ ]] || [ "$SELECTION" -lt 1 ] || [ "$SELECTION" -gt ${#CONTAINERS[@]} ]; then
+        echo "Invalid selection."
+        exit 1
+    fi
+
+    CONTAINER_NAME="${CONTAINERS[$((SELECTION-1))]}"
+    echo "Attaching to '${CONTAINER_NAME}'..."
+
+    if [ "$(docker inspect -f '{{.State.Running}}' ${CONTAINER_NAME})" != "true" ]; then
+        echo "Starting container '${CONTAINER_NAME}'..."
+        docker start "${CONTAINER_NAME}"
+    fi
+
+    docker attach "${CONTAINER_NAME}"
+}
+
+# ------------------------------------------------------------
+# Function: Remove a container
+# ------------------------------------------------------------
+remove_container() {
+    CONTAINERS=($(docker ps -a --format '{{.Names}}'))
+    if [ ${#CONTAINERS[@]} -eq 0 ]; then
+        echo "No containers to remove."
+        exit 0
+    fi
+
+    echo "Available containers:"
+    for i in "${!CONTAINERS[@]}"; do
+        echo "  [$((i+1))] ${CONTAINERS[$i]}"
+    done
+
+    read -p "Select container number to remove: " SELECTION
+
+    if ! [[ "$SELECTION" =~ ^[0-9]+$ ]] || [ "$SELECTION" -lt 1 ] || [ "$SELECTION" -gt ${#CONTAINERS[@]} ]; then
+        echo "Invalid selection."
+        exit 1
+    fi
+
+    CONTAINER_NAME="${CONTAINERS[$((SELECTION-1))]}"
+
+    echo
+    read -p "Are you sure you want to remove container '${CONTAINER_NAME}'? (y/n): " CONFIRM
+    if [[ "$CONFIRM" =~ ^[Yy]$ ]]; then
+        echo "Stopping and removing container '${CONTAINER_NAME}'..."
+        docker stop "${CONTAINER_NAME}" >/dev/null 2>&1
+        docker rm "${CONTAINER_NAME}" && echo "✅ Removed '${CONTAINER_NAME}'." || echo "❌ Failed to remove '${CONTAINER_NAME}'."
+    else
+        echo "Operation cancelled."
+        exit 0
+    fi
+}
+
+# ------------------------------------------------------------
+# Function: Open a new terminal into a running container
+# ------------------------------------------------------------
+exec_container() {
+    CONTAINERS=($(docker ps --format '{{.Names}}'))  # only RUNNING containers
+    if [ ${#CONTAINERS[@]} -eq 0 ]; then
+        echo "No running containers found. Start one first with './start_ros2 run'."
+        exit 1
+    fi
+
+    echo "Running containers:"
+    for i in "${!CONTAINERS[@]}"; do
+        echo "  [$((i+1))] ${CONTAINERS[$i]}"
+    done
+
+    read -p "Select container to open a shell in: " SELECTION
+    CONTAINER_NAME="${CONTAINERS[$((SELECTION-1))]}"
+
+    echo "Opening new shell in '${CONTAINER_NAME}'..."
+    docker exec -it "${CONTAINER_NAME}" bash
+}
+
+# ------------------------------------------------------------
+# Help / usage
+# ------------------------------------------------------------
+show_help() {
+    echo "Usage:"
+    echo "  ./start_ros2 create     → Build image from Dockerfile and start a new container"
+    echo "  ./start_ros2 run        → Resume or attach to an existing container"
+    echo "  ./start_ros2 extend     → creat a new terminal from existing container"
+    echo "  ./start_ros2 remove     → Stop and remove an existing container"
+ 
+}
+
+# ------------------------------------------------------------
+# Main command parsing
+# ------------------------------------------------------------
+case "$1" in
+    create)
+        create_new_container
+        ;;
+    run)
+        run_container
+        ;;
+    remove)
+        remove_container
+        ;;
+    extend)
+        exec_container
+        ;;
+    *)
+        show_help
+        ;;
+esac

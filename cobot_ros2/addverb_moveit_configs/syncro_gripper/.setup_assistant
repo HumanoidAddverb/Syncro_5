@@ -1,13 +1,13 @@
 moveit_setup_assistant_config:
   urdf:
     package: addverb_cobot_description
-    relative_path: urdf/heal.urdf.xacro
+    relative_path: urdf/syncro.urdf.xacro
   srdf:
     relative_path: config/robot.srdf
   package_settings:
-    author_name: harsh
+    author_name: harsh wadibhasme
     author_email: harsh.wadibhasme@addverb.com
-    generated_timestamp: 1765869654
+    generated_timestamp: 1781864965
   control_xacro:
     command:
       - position

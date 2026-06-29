@@ -1,136 +1,244 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:include filename="$(find addverb_cobot_description)/ros2_control/heal.config.xacro" />
+
     <ros2_control name="cobot_ros2_control" type="system">
         <hardware>
-            <plugin>addverb_cobot_hardware/cobot_hardware_interface</plugin>
-            <param name="control_mode">velocity_control_mode</param>
-            <param name="use_ros_control">1</param>
-            <param name="payload_status">0</param>
-            <param name="payload_mass">1</param>
-            <param name="gripper_type">1</param>
-            <param name="payload_comx">0.01</param>
-            <param name="payload_comy">0.01</param>
-            <param name="payload_comz">0.01</param>
-            <param name="payload_ixx">0.0005</param>
-            <param name="payload_iyy">0.0005</param>
-            <param name="payload_izz">0.0005</param>
-            <param name="payload_ixy">0.0</param>
-            <param name="payload_ixz">0.0</param>
-            <param name="payload_iyz">0.0</param>
+            <plugin>addverb_cobot/CobotHWInterface</plugin>
+            <param name="robot_name">"syncro"</param>
+            <param name="safety_type">${safety_type}</param>
+
+            <param name="payload_status">${payload_status}</param>
+            <param name="payload_mass">${payload_mass}</param>
+
+            <param name="payload_comx">${payload_com['x']}</param>
+            <param name="payload_comy">${payload_com['y']}</param>
+            <param name="payload_comz">${payload_com['z']}"</param>
+            <param name="payload_ixx">${payload_moi['Ixx']}</param>
+            <param name="payload_iyy">${payload_moi['Iyy']}</param>
+            <param name="payload_izz">${payload_moi['Izz']}</param>
+            <param name="payload_ixy">${payload_moi['Ixy']}</param>
+            <param name="payload_ixz">${payload_moi['Ixz']}</param>
+            <param name="payload_iyz">${payload_moi['Iyz']}</param>
+
+            <param name="gripper_type">${gripper_type}</param>
+
+            <param name="ft_type">${ft_type}</param>
+            <param name="ft_rot_r11">${ft_rot_R1[0]}</param>
+            <param name="ft_rot_r12">${ft_rot_R1[1]}</param>
+            <param name="ft_rot_r13">${ft_rot_R1[2]}</param>
+
+            <param name="ft_rot_r21">${ft_rot_R2[0]}</param>
+            <param name="ft_rot_r22">${ft_rot_R2[1]}</param>
+            <param name="ft_rot_r23">${ft_rot_R2[2]}</param>
+
+            <param name="ft_rot_r31">${ft_rot_R3[0]}</param>
+            <param name="ft_rot_r32">${ft_rot_R3[1]}</param>
+            <param name="ft_rot_r33">${ft_rot_R3[2]}</param>
         </hardware>
-    
-        <joint name="joint1">
-          <command_interface name="position"/>
-          <command_interface name="velocity">
-            <param name="min">-1.8</param>
-            <param name="max">1.8</param>
-          </command_interface>
-          <command_interface name="effort">
-            <param name="min">-40</param>
-            <param name="max">40</param>
-          </command_interface>
-          <command_interface name="time"/>
-  
-          <state_interface name="position"/>
-          <state_interface name="velocity"/>
-          <state_interface name="effort"/>
-          <state_interface name="event"/>
+
+        <joint name="Joint_1">
+            <command_interface name="position" />
+            <command_interface name="velocity" />
+            <command_interface name="effort" />
+            <state_interface name="position" />
+            <state_interface name="velocity" />
+            <state_interface name="effort" />
         </joint>
-  
-        <joint name="joint2">
-          <command_interface name="position"/>
-          <command_interface name="velocity">
-            <param name="min">-1.8</param>
-            <param name="max">1.8</param>
-          </command_interface>
-          <command_interface name="effort">
-            <param name="min">-40</param>
-            <param name="max">40</param>
-          </command_interface>
-  
-          <state_interface name="position"/>
-          <state_interface name="velocity"/>
-          <state_interface name="effort"/>
+
+        <joint name="Joint_2">
+            <command_interface name="position" />
+            <command_interface name="velocity" />
+            <command_interface name="effort" />
+
+            <state_interface name="position" />
+            <state_interface name="velocity" />
+            <state_interface name="effort" />
         </joint>
-  
-        <joint name="joint3">
-          <command_interface name="position"/>
-          <command_interface name="velocity">
-            <param name="min">-1.8</param>
-            <param name="max">1.8</param>
-          </command_interface>
-          <command_interface name="effort">
-            <param name="min">-40</param>
-            <param name="max">40</param>
-          </command_interface>
-  
-          <state_interface name="position"/>
-          <state_interface name="velocity"/>
-          <state_interface name="effort"/>
+
+        <joint name="Joint_3">
+            <command_interface name="position" />
+            <command_interface name="velocity" />
+            <command_interface name="effort" />
+
+            <state_interface name="position" />
+            <state_interface name="velocity" />
+            <state_interface name="effort" />
         </joint>
-  
-        <joint name="joint4">
-          <command_interface name="position"/>
-          <command_interface name="velocity">
-            <param name="min">-1.8</param>
-            <param name="max">1.8</param>
-          </command_interface>
-          <command_interface name="effort">
-            <param name="min">-40</param>
-            <param name="max">40</param>
-          </command_interface>
-  
-          <state_interface name="position"/>
-          <state_interface name="velocity"/>
-          <state_interface name="effort"/>
+
+        <joint name="Joint_4">
+            <command_interface name="position" />
+            <command_interface name="velocity" />
+            <command_interface name="effort" />
+
+            <state_interface name="position" />
+            <state_interface name="velocity" />
+            <state_interface name="effort" />
         </joint>
-  
-        <joint name="joint5">
-          <command_interface name="position"/>
-          <command_interface name="velocity">
-            <param name="min">-1.8</param>
-            <param name="max">1.8</param>
-          </command_interface>
-          <command_interface name="effort">
-            <param name="min">-40</param>
-            <param name="max">40</param>
-          </command_interface>
-  
-          <state_interface name="position"/>
-          <state_interface name="velocity"/>
-          <state_interface name="effort"/>
+
+        <joint name="Joint_5">
+            <command_interface name="position" />
+            <command_interface name="velocity" />
+            <command_interface name="effort" />
+
+            <state_interface name="position" />
+            <state_interface name="velocity" />
+            <state_interface name="effort" />
         </joint>
-  
-        <joint name="joint6">
-          <command_interface name="position"/>
-          <command_interface name="velocity">
-            <param name="min">-1.8</param>
-            <param name="max">1.8</param>
-          </command_interface>
-          <command_interface name="effort">
-            <param name="min">-40</param>
-            <param name="max">40</param>
-          </command_interface>
-  
-          <state_interface name="position"/>
-          <state_interface name="velocity"/>
-          <state_interface name="effort"/>
+
+        <joint name="Joint_6">
+            <command_interface name="position" />
+            <command_interface name="velocity" />
+            <command_interface name="effort" />
+
+            <state_interface name="position" />
+            <state_interface name="velocity" />
+            <state_interface name="effort" />
         </joint>
-        
-         <gpio name="twist_input">
-          <command_interface name="frac_del_x"/>
-          <command_interface name="frac_del_y"/>
-          <command_interface name="frac_del_z"/>
-          <command_interface name="frac_del_theta"/>
-          <command_interface name="frac_del_phi"/>
-          <command_interface name="frac_del_psi"/>
+
+        <!-- GPIO 0 -->
+        <gpio name="time_cmd">
+            <command_interface name="time" />
         </gpio>
-  
-        <gpio name="Gripper">
-          <command_interface name="goal_status"/>
-          <command_interface name="event_type"/>
-          <command_interface name="grasp_force"/>
-          <state_interface name="event_status"/> 
+
+        <!-- GPIO 1 -->
+        <gpio name="ptp_transfer">
+            <command_interface name="cmd" />
+            <state_interface name="state" />
+        </gpio>
+
+        <!-- GPIO 2 -->
+        <gpio name="record_cmd">
+            <command_interface name="iterations" />
+        </gpio>
+
+        <!-- GPIO 3 -->
+        <gpio name="tcp_time_cmd">
+            <command_interface name="time" />
+        </gpio>
+
+        <!-- GPIO 4 -->
+        <gpio name="ptp_tcp_transfer">
+            <command_interface name="cmd" />
+            <state_interface name="state" />
+        </gpio>
+
+        <!-- GPIO 5 -->
+        <gpio name="tcp">
+            <command_interface name="x" />
+            <command_interface name="y" />
+            <command_interface name="z" />
+            <command_interface name="r" />
+            <command_interface name="p" />
+            <command_interface name="yaw" />
+
+
+            <state_interface name="x" />
+            <state_interface name="y" />
+            <state_interface name="z" />
+            <state_interface name="r" />
+            <state_interface name="p" />
+            <state_interface name="yaw" />
+        </gpio>
+
+        <!-- GPIO -->
+        <!-- <gpio name="flex">
+            <command_interface name="factor" />
+        </gpio> -->
+
+        <!-- GPIO 6 -->
+        <gpio name="joint_jogging">
+            <command_interface name="joint_1" />
+            <command_interface name="joint_2" />
+            <command_interface name="joint_3" />
+            <command_interface name="joint_4" />
+            <command_interface name="joint_5" />
+            <command_interface name="joint_6" />
+        </gpio>
+
+        <!-- GPIO 7 -->
+        <gpio name="cartesian_jogging">
+            <command_interface name="linear_x" />
+            <command_interface name="linear_y" />
+            <command_interface name="linear_z" />
+            <command_interface name="angular_x" />
+            <command_interface name="angular_y" />
+            <command_interface name="angular_z" />
+        </gpio>
+
+        <!-- GPIO 8 -->
+        <gpio name="joint_impedance">
+            <command_interface name="stiffness_j1" />
+            <command_interface name="stiffness_j2" />
+            <command_interface name="stiffness_j3" />
+            <command_interface name="stiffness_j4" />
+            <command_interface name="stiffness_j5" />
+            <command_interface name="stiffness_j6" />
+            <command_interface name="damping_j1" />
+            <command_interface name="damping_j2" />
+            <command_interface name="damping_j3" />
+            <command_interface name="damping_j4" />
+            <command_interface name="damping_j5" />
+            <command_interface name="damping_j6" />
+        </gpio>
+
+        <!-- GPIO 9 -->
+        <gpio name="cartesian_impedance">
+            <command_interface name="stiffness_j1" />
+            <command_interface name="stiffness_j2" />
+            <command_interface name="stiffness_j3" />
+            <command_interface name="stiffness_j4" />
+            <command_interface name="stiffness_j5" />
+            <command_interface name="stiffness_j6" />
+            <command_interface name="damping_j1" />
+            <command_interface name="damping_j2" />
+            <command_interface name="damping_j3" />
+            <command_interface name="damping_j4" />
+            <command_interface name="damping_j5" />
+            <command_interface name="damping_j6" />
+            <command_interface name="mass_matrix_r11" />
+            <command_interface name="mass_matrix_r22" />
+            <command_interface name="mass_matrix_r33" />
+            <command_interface name="mass_matrix_r44" />
+            <command_interface name="mass_matrix_r55" />
+            <command_interface name="mass_matrix_r66" />
+            <command_interface name="ft_force_x" />
+            <command_interface name="ft_force_y" />
+            <command_interface name="ft_force_z" />
+            <command_interface name="ft_torque_x" />
+            <command_interface name="ft_torque_y" />
+            <command_interface name="ft_torque_z" />
+            <command_interface name="target_force_x" />
+            <command_interface name="target_force_y" />
+            <command_interface name="target_force_z" />
+            <command_interface name="target_torque_x" />
+            <command_interface name="target_torque_y" />
+            <command_interface name="target_torque_z" />
+        </gpio>
+
+        <!-- GPIO 10 -->
+        <gpio name="controller_name">
+            <command_interface name="ptp_joint" />
+            <command_interface name="free_drive" />
+            <command_interface name="recorder" />
+            <command_interface name="joint_jogging" />
+            <command_interface name="cartesian_jogging" />
+            <command_interface name="joint_impedance" />
+            <command_interface name="cartesian_impedance" />
+            <command_interface name="ptp_tcp" />
+            <command_interface name="gravity_comp_effort"/>
+        </gpio>
+
+        <!-- GPIO 11 -->
+        <gpio name="robot_state">
+            <state_interface name="state" />
+        </gpio>
+
+        <!-- GPIO 12 -->
+        <gpio name="gripper">
+            <command_interface name="transfer_cmd"/>
+            <command_interface name="position"/>
+            <command_interface name="grasp_force"/>
         </gpio>
     </ros2_control>
 </robot>

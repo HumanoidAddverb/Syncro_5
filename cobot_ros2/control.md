@@ -6,15 +6,15 @@
 ### Run the docker container
 Run the following command to resume the container
 ```bash
-sudo ./cobot.sh run
+sudo ./cobot run
 ```
 Or run the following command to create a new container
 ```bash
-sudo ./cobot.sh create
+sudo ./cobot create
 ```
 And if you wish to delete any container, use the following command
 ```bash
-sudo ./cobot.sh remove
+sudo ./cobot remove
 ```
 ## Start Heal Server to connect with the ROS2 SDK
 ```bash
@@ -24,7 +24,12 @@ sudo ./cobot.sh remove
 
 Open two terminals (referred to as **Terminal 1** and **Terminal 2**). In each terminal, run the following setup commands:  
 ```bash
-cd ~/cobot_ros2_ws
+./syncro_ros2 create     # Start a new container, Build image if not present
+./syncro_ros2 run        # Resume or attach to an existing container"
+./syncro_ros2 extend     # creat a new terminal from existing container"
+./syncro_ros2 remove     # Stop and remove an existing container"
+
+#run the following command in all the new terminals
 source install/setup.bash
 ```
 ### **Terminal 1**: Launch control manager
@@ -107,16 +112,6 @@ controller_manager_msgs/srv/SwitchController "{
     }"
     ```
 ## Execution
-
-Open two terminals (referred to as **Terminal 1** and **Terminal 2**). In each terminal, run the following setup commands:  
-```bash
-cd ~/cobot_ros2_ws
-source install/setup.bash
-```
-### **Terminal 1**: Launch control manager
-  ```bash 
-  ros2 launch addverb_cobot_control cobot_control.launch.py
-  ```
 ### **Terminal 2**: Run the Desired Controllers 
 You can run controllers in two methods :
 

@@ -22,7 +22,7 @@ def generate_launch_description():
         [
             FindPackageShare("addverb_cobot_description"),
             "urdf",
-            'heal_ros2_control.urdf.xacro',
+            'syncro.urdf.xacro',
         ]
     )
     

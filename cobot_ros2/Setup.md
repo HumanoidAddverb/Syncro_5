@@ -13,16 +13,16 @@ The `<docker name>.tar` file is to be downloaded on the cobot's system.
 ### 2. Load the docker image
 Whenever you want to use a new updated docker image .tar, load it with:
 ```bash
-docker load -i <docker name>.tar
+docker load -i cobot.tar
 ```
 --------------------------------------------------
 
 ### Run the docker container
-Run the following command or use the cobot.sh script.
+Run the following command or use the cobot script.
 ```bash
 docker run -it --network host --privileged -v ~/robot_network_config:/robot_network_config --tty --volume /dev:/dev cobot:deploy
 ```
-## calibrate the FT sensor
+## calibrate the FT sensor (if robotus FT sensor is used)
 ```bash
 ./ft_calibration
 ```
@@ -31,7 +31,23 @@ docker run -it --network host --privileged -v ~/robot_network_config:/robot_netw
 ./heal_server
 ```
 ------------------------------------------------
-## User System Setup
+## Docker Image to run the Syncro without installing ROS2
+
+1. run following commands to load the docker image and start the container
+```bash
+cd ~/cobot_ros2_ws/src/Syncro_5
+chmod +x syncro_ros2
+./syncro_ros2 create  # this will load the docker image and give a name to your docker container
+```
+2. How to use the docker to run cobot_ros2_ws
+```bash
+    ./syncro_ros2 create     # Start a new container, Build image if not present
+    ./syncro_ros2 run        # Resume or attach to an existing container"
+    ./syncro_ros2 extend     # creat a new terminal from existing container"
+    ./syncro_ros2 remove     # Stop and remove an existing container"
+```
+------------------------------------------------
+## User System Setup (OPTIONAL)
 ### Dependencies
 
 1. Ubuntu 22.04 LTS
@@ -61,9 +77,10 @@ docker run -it --network host --privileged -v ~/robot_network_config:/robot_netw
     /opt/addverb/
             └── cobot_backend/
     ```
-4. Build cobot_ros2_ws 
+4. Start the docker container and Build cobot_ros2_ws 
     ```bash
-    cd cobot_ros2_ws
+    cd ~/cobot_ros2_ws/src/Syncro5/ # move to directory with syncro_ros2 script 
+    ./syncro_ros2 run 
     #for syncro_5 use main branch, for heal switch to heal branch, steps mentioned below.
     colcon build --symlink-install
     source install/setup.bash   
@@ -77,7 +94,7 @@ colcon build --executor sequential
 
 # To switch branch:
 ```bash
-cd ~/cobot_ros2_ws/src/cobot_ros2/
+cd ~/cobot_ros2_ws/src/Syncro5/
 # to check branch
 git branch
 # to switch branch

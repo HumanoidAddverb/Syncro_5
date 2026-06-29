@@ -71,7 +71,7 @@ private:
     if (srv_client_->wait_for_service(100ms)) {
       auto req = std::make_shared<GripperSrv::Request>();
 
-      bool want_open = goal->command.position < 0.5;
+      bool want_open = goal->command.position < -0.85;
 
       if (want_open) {
         req->position = 1;       // OPEN

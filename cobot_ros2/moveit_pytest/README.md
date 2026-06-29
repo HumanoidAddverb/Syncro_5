@@ -38,11 +38,15 @@ NOTE:
 There are two supported configurations:
 1. Without gripper 
 
-    Package name: " syncro_5_moveit_config"
+    Package name: " syncro"
 
 2. With gripper 
 
     Package name: " syncro_gripper"
+
+3. With gripper and ft ( this is to accomodate the structural difference in the end effector, better collision check) 
+
+    Package name: " syncro_gripper_ft"
 
 ---------------------------------------
 # 1. Using MoveIt with RViz (Simulation)
@@ -51,7 +55,7 @@ There are two supported configurations:
 To run MoveIt in simulation mode with RViz, launch:
 
     # without gripper
-    ros2 launch syncro_5_moveit_config demo.launch.py
+    ros2 launch syncro demo.launch.py
 
     # with gripper
     ros2 launch syncro_gripper demo_launch.py
@@ -68,7 +72,7 @@ This will start:
 First, launch MoveIt without simulation:
 
     # without gripper
-    ros2 launch syncro_5_moveit_config move_group.launch.py
+    ros2 launch syncro move_group.launch.py
 
     # with gripper
     ros2 launch syncro_gripper move_group.launch.py
@@ -77,7 +81,7 @@ To visualize the robot and planning in RViz (optional), open a new terminal
 and run:
 
     # without gripper
-    ros2 launch syncro_5_moveit_config moveit_rviz.launch.py
+    ros2 launch syncro moveit_rviz.launch.py
 
     # with gripper
     ros2 launch syncro_gripper moveit_rviz.launch.py

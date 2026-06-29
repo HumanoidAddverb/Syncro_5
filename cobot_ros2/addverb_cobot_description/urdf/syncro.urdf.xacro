@@ -1,0 +1,1011 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot
+  name="robot"
+  xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Load payload configuration -->
+  <xacro:property name="payload_cfg" value="${xacro.load_yaml('$(find addverb_cobot_control)/config/payload_config.yaml')}"/>
+  <xacro:property name="has_ft"      value="${payload_cfg['ft_type'] != 0}"/>
+  <xacro:property name="has_gripper" value="${payload_cfg['gripper_type'] != 0}"/>
+
+  <!-- FT sensor offset from Link_6 (used to compute combined offset when FT absent) -->
+  <xacro:property name="ft_z" value="0.0265"/>
+
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="0.00003171 -0.00000834 0.00865705"
+        rpy="0 0 0" />
+      <mass
+        value="3.71924208" />
+      <inertia
+        ixx="0.01620278"
+        ixy="-0.00000270"
+        ixz="0.00000057"
+        iyy="0.01619715"
+        iyz="-0.00000230"
+        izz="0.02243728" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://addverb_cobot_description/syncro_meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.941176470588235 0.925490196078431 0.882352941176471 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://addverb_cobot_description/syncro_meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="Link_1">
+    <inertial>
+      <origin
+        xyz="0.01250171 0.00005091 0.12286014"
+        rpy="0 0 0" />
+      <mass
+        value="7.90090680" />
+      <inertia
+        ixx="0.04470291"
+        ixy="-0.00000635"
+        ixz="-0.00633054"
+        iyy="0.04720102"
+        iyz="0.00000610"
+        izz="0.01586864" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://addverb_cobot_description/syncro_meshes/Link_1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.941176470588235 0.925490196078431 0.882352941176471 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://addverb_cobot_description/syncro_meshes/Link_1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Joint_1"
+    type="revolute">
+    <origin
+      xyz="0 0 0.13925"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="Link_1" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-3"
+      upper="3"
+      effort="100"
+      velocity="3" />
+  </joint>
+  <link
+    name="Link_2">
+    <inertial>
+      <origin
+        xyz="-0.14996193 -0.00001341 0.01935471"
+        rpy="0 0 0" />
+      <mass
+        value="1.01571325" />
+      <inertia
+        ixx="0.00145046"
+        ixy="-0.00000793"
+        ixz="-0.00000054"
+        iyy="0.01545460"
+        iyz="-0.00000000"
+        izz="0.01632968" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://addverb_cobot_description/syncro_meshes/Link_2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.941176470588235 0.925490196078431 0.882352941176471 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://addverb_cobot_description/syncro_meshes/Link_2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Joint_2"
+    type="revolute">
+    <origin
+      xyz="0.086 0 0.18655"
+      rpy="0 1.5708 0" />
+    <parent
+      link="Link_1" />
+    <child
+      link="Link_2" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-3"
+      upper="3"
+      effort="100"
+      velocity="3" />
+  </joint>
+  <link
+    name="Link_3">
+    <inertial>
+      <origin
+        xyz="0.00001825 0.03352514 0.06850552"
+        rpy="0 0 0" />
+      <mass
+        value="5.55793805" />
+      <inertia
+        ixx="0.02316191"
+        ixy="0.00001043"
+        ixz="-0.00000011"
+        iyy="0.00979751"
+        iyz="-0.00327398"
+        izz="0.02120896" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://addverb_cobot_description/syncro_meshes/Link_3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.941176470588235 0.925490196078431 0.882352941176471 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://addverb_cobot_description/syncro_meshes/Link_3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Joint_3"
+    type="revolute">
+    <origin
+      xyz="-0.3 0 0"
+      rpy="-3.1416 0 -3.1416" />
+    <parent
+      link="Link_2" />
+    <child
+      link="Link_3" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-3"
+      upper="3"
+      effort="100"
+      velocity="3" />
+  </joint>
+  <link
+    name="Link_4">
+    <inertial>
+      <origin
+        xyz="0.05067666 -0.00004877 0.11020526"
+        rpy="0 0 0" />
+      <mass
+        value="1.88943378" />
+      <inertia
+        ixx="0.00362118"
+        ixy="0.00000167"
+        ixz="-0.00060345"
+        iyy="0.00412573"
+        iyz="0.00000579"
+        izz="0.00232461" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://addverb_cobot_description/syncro_meshes/Link_4.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.941176470588235 0.925490196078431 0.882352941176471 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://addverb_cobot_description/syncro_meshes/Link_4.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Joint_4"
+    type="revolute">
+    <origin
+      xyz="0 0.1535 0.086"
+      rpy="1.5708 1.5708 3.14" />
+    <parent
+      link="Link_3" />
+    <child
+      link="Link_4" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-3"
+      upper="3"
+      effort="100"
+      velocity="3" />
+  </joint>
+  <link
+    name="Link_5">
+    <inertial>
+      <origin
+        xyz="0.00006919 0.04683316 0.05879397"
+        rpy="0 0 0" />
+      <mass
+        value="1.75457385" />
+      <inertia
+        ixx="0.00234701"
+        ixy="-0.00000354"
+        ixz="0.00000119"
+        iyy="0.00172306"
+        iyz="-0.00012186"
+        izz="0.00229195" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://addverb_cobot_description/syncro_meshes/Link_5.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.941176470588235 0.925490196078431 0.882352941176471 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://addverb_cobot_description/syncro_meshes/Link_5.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Joint_5"
+    type="revolute">
+    <origin
+      xyz="0.030953 0 0.1626"
+      rpy="0 -0.5236 0" />
+    <parent
+      link="Link_4" />
+    <child
+      link="Link_5" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-3"
+      upper="3"
+      effort="100"
+      velocity="3" />
+  </joint>
+
+  <link
+    name="Link_6">
+    <inertial>
+      <origin
+        xyz="0.00110042 0.00023470 0.00814235"
+        rpy="0 0 0" />
+      <mass
+        value="0.17834911" />
+      <inertia
+        ixx="0.00011006"
+        ixy="-0.00000058"
+        ixz="-0.00000146"
+        iyy="0.00010759"
+        iyz="-0.00000031"
+        izz="0.00019376" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://addverb_cobot_description/syncro_meshes/Link_6.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://addverb_cobot_description/syncro_meshes/Link_6.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Joint_6"
+    type="revolute">
+    <origin
+      xyz="0 0.0975 0.06"
+      rpy="-1.5708 0.5236 0" />
+    <parent
+      link="Link_5" />
+    <child
+      link="Link_6" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-3"
+      upper="3"
+      effort="100"
+      velocity="3" />
+  </joint>
+
+
+<!-- ############################################## FT ########################################## -->
+
+  <xacro:if value="${has_ft}">
+    <link
+      name="FT_sensor">
+      <inertial>
+        <origin
+          xyz="-0.000606383270312297 -0.000803593977746264 0.0265476058555786"
+          rpy="0 0 0" />
+        <mass
+          value="0.25823184" />
+        <inertia
+          ixx="0.00019337"
+          ixy="0.00000561"
+          ixz="0.00000031"
+          iyy="0.00018953"
+          iyz="0.00000045"
+          izz="0.00023996" />
+      </inertial>
+      <visual>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://addverb_cobot_description/syncro_meshes/ft/FT_sensor.STL" />
+        </geometry>
+        <material
+          name="">
+          <color
+            rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://addverb_cobot_description/syncro_meshes/ft/FT_sensor.STL" />
+        </geometry>
+      </collision>
+    </link>
+    <joint
+      name="FT_sensor"
+      type="fixed">
+      <origin
+        xyz="0 0 ${ft_z}"
+        rpy="0 0 0" />
+      <parent
+        link="Link_6" />
+      <child
+        link="FT_sensor" />
+      <axis
+        xyz="0 0 0" />
+    </joint>
+  </xacro:if>
+
+
+<!-- #################################### GRIPPER #################################################-->
+
+  <xacro:if value="${has_gripper}">
+    <link
+      name="gripper_base_link">
+      <inertial>
+        <origin
+          xyz="0.000968305489002494 0.0272628721297719 -3.92206156679312E-05"
+          rpy="0 0 0" />
+        <mass
+          value="0.667983718664473" />
+        <inertia
+          ixx="0.000378863528913665"
+          ixy="3.04724981372968E-05"
+          ixz="-2.24506309945257E-08"
+          iyy="0.000437706032708141"
+          iyz="-2.64895816315703E-07"
+          izz="0.000492387437033956" />
+      </inertial>
+      <visual>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://addverb_cobot_description/syncro_meshes/gripper/gripper_base_link.STL" />
+        </geometry>
+        <material
+          name="">
+          <color
+            rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://addverb_cobot_description/syncro_meshes/gripper/gripper_base_link.STL" />
+        </geometry>
+      </collision>
+    </link>
+
+    <!-- When FT is present: attach gripper to FT_sensor at its designed offset -->
+    <xacro:if value="${has_ft}">
+      <joint
+        name="gripper_base_joint"
+        type="fixed">
+        <origin
+          xyz="0.00021987 -2.3546E-10 -0.006"
+          rpy="0 0.0 3.1416" />
+        <parent
+          link="FT_sensor" />
+        <child
+          link="gripper_base_link" />
+      </joint>
+    </xacro:if>
+
+    <!-- When FT is absent: attach gripper directly to Link_6 at combined offset (FT + gripper) -->
+    <xacro:unless value="${has_ft}">
+      <joint
+        name="gripper_base_joint"
+        type="fixed">
+        <origin
+          xyz="0.00021987 -2.3546E-10 ${-0.006 + ft_z}"
+          rpy="0 0.0 0" />
+        <parent
+          link="Link_6" />
+        <child
+          link="gripper_base_link" />
+      </joint>
+    </xacro:unless>
+
+    <link
+      name="left_link_1">
+      <inertial>
+        <origin
+          xyz="0.0155328722190179 0.0204027470076035 -6.99601561565458E-06"
+          rpy="0 0 0" />
+        <mass
+          value="0.0512537568596193" />
+        <inertia
+          ixx="1.29730117984788E-05"
+          ixy="2.28895824162255E-07"
+          ixz="-1.62906963269812E-10"
+          iyy="8.11595639482511E-06"
+          iyz="-1.60558480946145E-09"
+          izz="1.40525550125839E-05" />
+      </inertial>
+      <visual>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://addverb_cobot_description/syncro_meshes/gripper/left_link_1.STL" />
+        </geometry>
+        <material
+          name="">
+          <color
+            rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://addverb_cobot_description/syncro_meshes/gripper/left_link_1.STL" />
+        </geometry>
+      </collision>
+    </link>
+    <joint
+      name="gripper_finger_joint"
+      type="revolute">
+      <origin
+        xyz="-0.0345 0 0.0955"
+        rpy="1.5708 0 3.1416" />
+      <parent
+        link="gripper_base_link" />
+      <child
+        link="left_link_1" />
+      <axis
+        xyz="0 0 1" />
+      <limit
+        lower="-1.1"
+        upper="0.28"
+        effort="10"
+        velocity="3" />
+    </joint>
+    <link
+      name="left_link_2">
+      <inertial>
+        <origin
+          xyz="0.0154357672372158 0.0187867677324339 -9.13069674126631E-10"
+          rpy="0 0 0" />
+        <mass
+          value="0.0389473095969437" />
+        <inertia
+          ixx="2.57427714809929E-06"
+          ixy="-8.97065059204809E-07"
+          ixz="-1.5053081068202E-13"
+          iyy="3.82644636055648E-06"
+          iyz="3.43925102178701E-12"
+          izz="4.27840462749279E-06" />
+      </inertial>
+      <visual>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://addverb_cobot_description/syncro_meshes/gripper/left_link_2.STL" />
+        </geometry>
+        <material
+          name="">
+          <color
+            rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
+          </material>
+      </visual>
+      <collision>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://addverb_cobot_description/syncro_meshes/gripper/left_link_2.STL" />
+        </geometry>
+      </collision>
+    </link>
+    <joint
+      name="left_link_2_joint"
+      type="revolute">
+      <origin
+        xyz="0.0084532 0.054765 0"
+        rpy="0 0 1.4176" />
+      <parent
+        link="left_link_1" />
+      <child
+        link="left_link_2" />
+      <axis
+        xyz="0 0 1" />
+      <limit
+        lower="-1.57"
+        upper="1.57"
+        effort="10"
+        velocity="3" />
+      <mimic joint="gripper_finger_joint" multiplier="-1.0" offset="0"/>
+    </joint>
+    <link
+      name="left_link_3">
+      <inertial>
+        <origin
+          xyz="-0.00334418622613321 0.0283624333398809 -3.10668878198915E-11"
+          rpy="0 0 0" />
+        <mass
+          value="0.0341555144685402" />
+        <inertia
+          ixx="1.48024792944664E-05"
+          ixy="1.04645768257833E-06"
+          ixz="1.40802201678463E-12"
+          iyy="7.49494613311942E-06"
+          iyz="1.17936919008716E-13"
+          izz="8.5965359697283E-06" />
+      </inertial>
+      <visual>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://addverb_cobot_description/syncro_meshes/gripper/left_link_3.STL" />
+        </geometry>
+        <material
+          name="">
+          <color
+            rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://addverb_cobot_description/syncro_meshes/gripper/left_link_3.STL" />
+        </geometry>
+      </collision>
+    </link>
+    <joint
+      name="left_link_3_joint"
+      type="revolute">
+      <origin
+        xyz="0.0025023 0.019843 0"
+        rpy="0 0 1.4454" />
+      <parent
+        link="left_link_2" />
+      <child
+        link="left_link_3" />
+      <axis
+        xyz="0 0 1" />
+      <limit
+        lower="-1.57"
+        upper="1.57"
+        effort="10"
+        velocity="3" />
+      <mimic joint="gripper_finger_joint" multiplier="1.0" offset="0"/>
+    </joint>
+    <link
+      name="left_link_4">
+      <inertial>
+        <origin
+          xyz="3.88578058618805E-16 -8.84708972748172E-17 -5.02725230503305E-17"
+          rpy="0 0 0" />
+        <mass
+          value="0.000438069452105348" />
+        <inertia
+          ixx="4.71169971126701E-09"
+          ixy="-5.16987882845642E-26"
+          ixz="-1.21929289439668E-25"
+          iyy="4.71169971126701E-09"
+          iyz="-8.66242438228819E-25"
+          izz="2.27601929336342E-09" />
+      </inertial>
+      <visual>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://addverb_cobot_description/syncro_meshes/gripper/left_link_4.STL" />
+        </geometry>
+        <material
+          name="">
+          <color
+            rgba="0.756862745098039 0.768627450980392 0.752941176470588 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://addverb_cobot_description/syncro_meshes/gripper/left_link_4.STL" />
+        </geometry>
+      </collision>
+    </link>
+    <joint
+      name="left_link_4_joint"
+      type="revolute">
+      <origin
+        xyz="-0.0069331 0.054964 0"
+        rpy="0 0 1.6963" />
+      <parent
+        link="left_link_3" />
+      <child
+        link="left_link_4" />
+      <axis
+        xyz="0 0 1" />
+      <limit
+        lower="-1.57"
+        upper="1.57"
+        effort="10"
+        velocity="3" />
+      <mimic joint="gripper_finger_joint" multiplier="1.0" offset="0"/>
+    </joint>
+    <link
+      name="right_link_1">
+      <inertial>
+        <origin
+          xyz="-0.0155328722189132 0.0204027470076895 6.9960156160884E-06"
+          rpy="0 0 0" />
+        <mass
+          value="0.0512537568596193" />
+        <inertia
+          ixx="1.29730117956485E-05"
+          ixy="-2.28895823639774E-07"
+          ixz="-1.62906961760551E-10"
+          iyy="8.11595639765549E-06"
+          iyz="1.60558480158165E-09"
+          izz="1.40525550125839E-05" />
+      </inertial>
+      <visual>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://addverb_cobot_description/syncro_meshes/gripper/right_link_1.STL" />
+        </geometry>
+        <material
+          name="">
+          <color
+            rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://addverb_cobot_description/syncro_meshes/gripper/right_link_1.STL" />
+        </geometry>
+      </collision>
+    </link>
+    <joint
+      name="right_link_1_joint"
+      type="revolute">
+      <origin
+        xyz="0.0345 0 0.0955"
+        rpy="1.5708 0 3.1416" />
+      <parent
+        link="gripper_base_link" />
+      <child
+        link="right_link_1" />
+      <axis
+        xyz="0 0 1" />
+      <limit
+        lower="-1.57"
+        upper="1.57"
+        effort="10"
+        velocity="3" />
+      <mimic joint="gripper_finger_joint" multiplier="-1.0" offset="0"/>
+    </joint>
+    <link
+      name="right_link_2">
+      <inertial>
+        <origin
+          xyz="0.0154380756020649 -0.0187871240406819 9.13060177326112E-10"
+          rpy="0 0 0" />
+        <mass
+          value="0.0389473095969437" />
+        <inertia
+          ixx="2.57425775858247E-06"
+          ixy="8.97003747554506E-07"
+          ixz="-9.05367221481643E-13"
+          iyy="3.8264657500733E-06"
+          iyz="-3.40144917357235E-12"
+          izz="4.27840462749278E-06" />
+      </inertial>
+      <visual>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://addverb_cobot_description/syncro_meshes/gripper/right_link_2.STL" />
+        </geometry>
+        <material
+          name="">
+          <color
+            rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://addverb_cobot_description/syncro_meshes/gripper/right_link_2.STL" />
+        </geometry>
+      </collision>
+    </link>
+    <joint
+      name="right_link_2_joint"
+      type="revolute">
+      <origin
+        xyz="-0.0084532 0.054765 0"
+        rpy="0 0 1.7239" />
+      <parent
+        link="right_link_1" />
+      <child
+        link="right_link_2" />
+      <axis
+        xyz="0 0 1" />
+      <limit
+        lower="-1.57"
+        upper="1.57"
+        effort="10"
+        velocity="3" />
+      <mimic joint="gripper_finger_joint" multiplier="1.0" offset="0"/>
+    </joint>
+    <link
+      name="right_link_3">
+      <inertial>
+        <origin
+          xyz="-0.00334382000774616 -0.0283611529922348 3.10772219993799E-11"
+          rpy="0 0 0" />
+        <mass
+          value="0.0341555144685403" />
+        <inertia
+          ixx="1.4802496295816E-05"
+          ixy="-1.04643039357585E-06"
+          ixz="1.91939896575051E-12"
+          iyy="7.49492913176991E-06"
+          iyz="-8.33805671367203E-13"
+          izz="8.59653596972831E-06" />
+      </inertial>
+      <visual>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://addverb_cobot_description/syncro_meshes/gripper/right_link_3.STL" />
+        </geometry>
+        <material
+          name="">
+          <color
+            rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://addverb_cobot_description/syncro_meshes/gripper/right_link_3.STL" />
+        </geometry>
+      </collision>
+    </link>
+    <joint
+      name="right_link_3_joint"
+      type="revolute">
+      <origin
+        xyz="0.0025023 -0.019843 0"
+        rpy="0 0 -1.4454" />
+      <parent
+        link="right_link_2" />
+      <child
+        link="right_link_3" />
+      <axis
+        xyz="0 0 1" />
+      <limit
+        lower="-1.57"
+        upper="1.57"
+        effort="10"
+        velocity="3" />
+      <mimic joint="gripper_finger_joint" multiplier="-1.0" offset="0"/>
+    </joint>
+    <link
+      name="right_link_4">
+      <inertial>
+        <origin
+          xyz="4.16333634234434E-17 -4.16333634234434E-17 9.66779289429434E-18"
+          rpy="0 0 0" />
+        <mass
+          value="0.000438069452105349" />
+        <inertia
+          ixx="4.71169971126701E-09"
+          ixy="3.6189151799195E-25"
+          ixz="-1.69839759942525E-25"
+          iyy="4.71169971126701E-09"
+          iyz="-9.21449339442038E-25"
+          izz="2.27601929336342E-09" />
+      </inertial>
+      <visual>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://addverb_cobot_description/syncro_meshes/gripper/right_link_4.STL" />
+        </geometry>
+        <material
+          name="">
+          <color
+            rgba="0.756862745098039 0.768627450980392 0.752941176470588 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://addverb_cobot_description/syncro_meshes/gripper/right_link_4.STL" />
+        </geometry>
+      </collision>
+    </link>
+    <joint
+      name="right_link_4_joint"
+      type="revolute">
+      <origin
+        xyz="-0.0069331 -0.054964 0"
+        rpy="0 0 -1.6963" />
+      <parent
+        link="right_link_3" />
+      <child
+        link="right_link_4" />
+      <axis
+        xyz="0 0 1" />
+      <limit
+        lower="-1.57"
+        upper="1.57"
+        effort="10"
+        velocity="3" />
+      <mimic joint="gripper_finger_joint" multiplier="-1.0" offset="0"/>
+    </joint>
+  </xacro:if>
+
+</robot>

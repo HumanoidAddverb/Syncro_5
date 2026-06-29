@@ -128,7 +128,7 @@ def main(args=None):
             'joint6': np.clip(random_jpos[5],joint_limits[5][0],joint_limits[5][1]),
         }
 
-        trajectory = node.plan_to_joint_positions(target_positions, group_name='syncro_5')
+        trajectory = node.plan_to_joint_positions(target_positions, group_name='arm')
 
         if trajectory:
             node.get_logger().info(f'Received trajectory with {len(trajectory.joint_trajectory.points)} points')

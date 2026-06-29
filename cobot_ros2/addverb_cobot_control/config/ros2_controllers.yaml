@@ -18,12 +18,12 @@ velocity_controller:
   #  interface_name: velocity
     # type: addverb_cobot_controllers/VelocityController
     commands:
-      - joint1/velocity
-      - joint2/velocity
-      - joint3/velocity
-      - joint4/velocity
-      - joint5/velocity
-      - joint6/velocity
+      - Joint_1/velocity
+      - Joint_2/velocity
+      - Joint_3/velocity
+      - Joint_4/velocity
+      - Joint_5/velocity
+      - Joint_6/velocity
       # - controller_name/velocity
     states:
       - robot_state/state    
@@ -32,22 +32,22 @@ ptp_joint_controller:
   ros__parameters:
     type: addverb_cobot_controllers/PTPJointController
     commands:
-      - joint1/position
-      - joint2/position
-      - joint3/position
-      - joint4/position
-      - joint5/position
-      - joint6/position
+      - Joint_1/position
+      - Joint_2/position
+      - Joint_3/position
+      - Joint_4/position
+      - Joint_5/position
+      - Joint_6/position
       - time_cmd/time
       - ptp_transfer/cmd
       - controller_name/ptp_joint
     states:
-      - joint1/position
-      - joint2/position
-      - joint3/position
-      - joint4/position
-      - joint5/position
-      - joint6/position
+      - Joint_1/position
+      - Joint_2/position
+      - Joint_3/position
+      - Joint_4/position
+      - Joint_5/position
+      - Joint_6/position
       - ptp_transfer/state
       - robot_state/state
 
@@ -55,12 +55,12 @@ free_drive_controller:
   ros__parameters:
     type: addverb_cobot_controllers/FreeDriveController
     states:
-      - joint1/position
-      - joint2/position
-      - joint3/position
-      - joint4/position
-      - joint5/position
-      - joint6/position
+      - Joint_1/position
+      - Joint_2/position
+      - Joint_3/position
+      - Joint_4/position
+      - Joint_5/position
+      - Joint_6/position
       - robot_state/state
     commands:
       - controller_name/free_drive
@@ -93,24 +93,24 @@ recorder_controller:
   ros__parameters:
     type: addverb_cobot_controllers/RecorderController
     commands:
-        - joint1/position
-        - joint2/position
-        - joint3/position
-        - joint4/position
-        - joint5/position
-        - joint6/position
+        - Joint_1/position
+        - Joint_2/position
+        - Joint_3/position
+        - Joint_4/position
+        - Joint_5/position
+        - Joint_6/position
         - time_cmd/time
         - ptp_transfer/cmd
         - record_cmd/iterations
         - controller_name/recorder
 
     states:
-        - joint1/position
-        - joint2/position
-        - joint3/position
-        - joint4/position
-        - joint5/position
-        - joint6/position
+        - Joint_1/position
+        - Joint_2/position
+        - Joint_3/position
+        - Joint_4/position
+        - Joint_5/position
+        - Joint_6/position
         - ptp_transfer/state
         - robot_state/state
 
@@ -152,12 +152,12 @@ joint_impedance_controller:
   ros__parameters:
     type: addverb_cobot_controllers/JointImpedanceController
     commands:
-      - joint1/position
-      - joint2/position
-      - joint3/position
-      - joint4/position
-      - joint5/position
-      - joint6/position
+      - Joint_1/position
+      - Joint_2/position
+      - Joint_3/position
+      - Joint_4/position
+      - Joint_5/position
+      - Joint_6/position
       - joint_impedance/stiffness_j1
       - joint_impedance/stiffness_j2
       - joint_impedance/stiffness_j3
@@ -174,12 +174,12 @@ joint_impedance_controller:
       - ptp_transfer/cmd
       - controller_name/joint_impedance
     states:
-      - joint1/position
-      - joint2/position
-      - joint3/position
-      - joint4/position
-      - joint5/position
-      - joint6/position
+      - Joint_1/position
+      - Joint_2/position
+      - Joint_3/position
+      - Joint_4/position
+      - Joint_5/position
+      - Joint_6/position
       - ptp_transfer/state
       - robot_state/state
 
@@ -187,12 +187,12 @@ cartesian_impedance_controller:
   ros__parameters:
     type: addverb_cobot_controllers/CartesianImpedanceController
     commands:
-      - joint1/position
-      - joint2/position
-      - joint3/position
-      - joint4/position
-      - joint5/position
-      - joint6/position
+      - Joint_1/position
+      - Joint_2/position
+      - Joint_3/position
+      - Joint_4/position
+      - Joint_5/position
+      - Joint_6/position
       - cartesian_impedance/stiffness_j1
       - cartesian_impedance/stiffness_j2
       - cartesian_impedance/stiffness_j3
@@ -227,12 +227,12 @@ cartesian_impedance_controller:
       - ptp_transfer/cmd
       - controller_name/cartesian_impedance
     states:
-      - joint1/position
-      - joint2/position
-      - joint3/position
-      - joint4/position
-      - joint5/position
-      - joint6/position
+      - Joint_1/position
+      - Joint_2/position
+      - Joint_3/position
+      - Joint_4/position
+      - Joint_5/position
+      - Joint_6/position
       - ptp_transfer/state
       - robot_state/state
 
@@ -240,12 +240,12 @@ gravity_comp_effort_controller:
   ros__parameters:
     type: addverb_cobot_controllers/GravityCompEffortController
     commands:
-      - joint1/effort
-      - joint2/effort
-      - joint3/effort
-      - joint4/effort
-      - joint5/effort
-      - joint6/effort
+      - Joint_1/effort
+      - Joint_2/effort
+      - Joint_3/effort
+      - Joint_4/effort
+      - Joint_5/effort
+      - Joint_6/effort
       - controller_name/gravity_comp_effort
     states:
       - robot_state/state
@@ -254,12 +254,12 @@ effort_controller:
   ros__parameters:
     type: addverb_cobot_controllers/EffortController
     commands:
-      - joint1/effort
-      - joint2/effort
-      - joint3/effort
-      - joint4/effort
-      - joint5/effort
-      - joint6/effort
+      - Joint_1/effort
+      - Joint_2/effort
+      - Joint_3/effort
+      - Joint_4/effort
+      - Joint_5/effort
+      - Joint_6/effort
     states:
       - robot_state/state
 
