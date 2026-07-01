@@ -155,10 +155,10 @@ exec_container() {
 # ------------------------------------------------------------
 show_help() {
     echo "Usage:"
-    echo "  ./start_ros2 create     → Build image from Dockerfile and start a new container"
-    echo "  ./start_ros2 run        → Resume or attach to an existing container"
-    echo "  ./start_ros2 extend     → creat a new terminal from existing container"
-    echo "  ./start_ros2 remove     → Stop and remove an existing container"
+    echo "  ./syncro_ros2 create     → Build image from Dockerfile and start a new container"
+    echo "  ./syncro_ros2 run        → Resume or attach to an existing container"
+    echo "  ./syncro_ros2 extend     → creat a new terminal from existing container"
+    echo "  ./syncro_ros2 remove     → Stop and remove an existing container"
  
 }
 
