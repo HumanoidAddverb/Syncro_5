@@ -25,7 +25,7 @@ public:
 
         //create publisher for cartesian jogging
         publisher_ = this->create_publisher<geometry_msgs::msg::Twist>(
-        "/cartesian_jogging_controller/cartesian_jogging/command", 10);
+        "/arm_1_cartesian_jogging_controller/cartesian_jogging/command", 10);
     }
 
     void perform_demo()

@@ -17,7 +17,7 @@ class RecorderClient : public rclcpp::Node
         record_client_ = this->create_client<RecordSrv>("/arm_1_recorder_controller/record_mode");
         replay_client_ = rclcpp_action::create_client<ReplayAction>(
             this,
-            "/recorder_controller/replay_mode");
+            "/arm_1_recorder_controller/replay_mode");
       }
     
       void run()

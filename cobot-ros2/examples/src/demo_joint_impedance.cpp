@@ -27,7 +27,7 @@ public:
         RCLCPP_INFO(this->get_logger(), "Joint Impedance Test Client Node Initialized");
 
         client_ = rclcpp_action::create_client<FollowJointTrajectory>(
-            this, "/joint_impedance_controller/follow_joint_trajectory");
+            this, "/arm_1_joint_impedance_controller/follow_joint_trajectory");
 
         set_controller_parameters();
 
@@ -42,8 +42,8 @@ private:
         std::vector<double> stiffness_values = {200.0, 200.0, 200.0, 200.0, 200.0, 200.0};
         std::vector<double> damping_values = {5.0, 5.0, 5.0, 5.0, 5.0, 5.0};
 
-        this->declare_parameter("joint_impedance_controller.stiffness", stiffness_values);
-        this->declare_parameter("joint_impedance_controller.damping", damping_values);
+        this->declare_parameter("arm_1_joint_impedance_controller.stiffness", stiffness_values);
+        this->declare_parameter("arm_1_joint_impedance_controller.damping", damping_values);
 
         RCLCPP_INFO(this->get_logger(), "Controller parameters declared (local to this node).");
     }
@@ -64,7 +64,7 @@ private:
 
         auto goal_msg = FollowJointTrajectory::Goal();
         goal_msg.trajectory.joint_names = {
-            "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6"};
+            "arm_1_joint1", "arm_1_joint2", "arm_1_joint3", "arm_1_joint4", "arm_1_joint5", "arm_1_joint6"};
 
         trajectory_msgs::msg::JointTrajectoryPoint pt;
         pt.positions = {0.45, 0.0, 0.0, 0.0, 0.0, 0.1};

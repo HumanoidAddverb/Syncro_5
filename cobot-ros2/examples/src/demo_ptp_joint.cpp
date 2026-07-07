@@ -43,7 +43,7 @@ namespace ptp
 
                 auto goal_msg = FollowJointTrajectory::Goal();
                 goal_msg.trajectory.joint_names = {
-                    "joint_1", "joint_2", "joint_3", "joint_4", "joint_5", "joint_6"};
+                    "arm_1_joint1", "arm_1_joint2", "arm_1_joint3", "arm_1_joint4", "arm_1_joint5", "arm_1_joint6"};
 
                 if (multi_point_target)
                 {

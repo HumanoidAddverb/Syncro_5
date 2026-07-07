@@ -45,11 +45,11 @@ private:
         std::vector<double> ft_force_values = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
         std::vector<double> target_force_values = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 
-        this->declare_parameter("cartesian_impedance_controller.stiffness", stiffness_values);
-        this->declare_parameter("cartesian_impedance_controller.damping", damping_values);
-        this->declare_parameter("cartesian_impedance_controller.mass_matrix", mass_matrix_values);
-        this->declare_parameter("cartesian_impedance_controller.ft_force", ft_force_values);
-        this->declare_parameter("cartesian_impedance_controller.target_force", target_force_values);
+        this->declare_parameter("arm_1_cartesian_impedance_controller.stiffness", stiffness_values);
+        this->declare_parameter("arm_1_cartesian_impedance_controller.damping", damping_values);
+        this->declare_parameter("arm_1_cartesian_impedance_controller.mass_matrix", mass_matrix_values);
+        this->declare_parameter("arm_1_cartesian_impedance_controller.ft_force", ft_force_values);
+        this->declare_parameter("arm_1_cartesian_impedance_controller.target_force", target_force_values);
 
         RCLCPP_INFO(this->get_logger(), "Controller parameters declared (local to this node).");
     }
@@ -70,7 +70,7 @@ private:
 
         auto goal_msg = FollowJointTrajectory::Goal();
         goal_msg.trajectory.joint_names = {
-            "arm_1_joint_1", "arm_1_joint_2", "arm_1_joint_3", "arm_1_joint_4", "arm_1_joint_5", "arm_1_joint_6"};
+            "arm_1_joint1", "arm_1_joint2", "arm_1_joint3", "arm_1_joint4", "arm_1_joint5", "arm_1_joint6"};
 
         trajectory_msgs::msg::JointTrajectoryPoint pt;
         pt.positions = {0.4, 0.0, 0.0, 0.0, 0.0, 0.1};
