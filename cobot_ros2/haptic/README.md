@@ -25,7 +25,7 @@ ros2 run haptic_pkg haptic_node
 
 In a **separate terminal**, navigate to the Cobot ROS2 SDK folder:
 ```bash
-cd ~/cobot_ros2/ 
+cd ~/cobot_ros2_ws/ 
 source install/setup.bash
 source ~/haptic_ros2/install/setup.bash # navigate to the haptic SDK folder and soure it
 ros2 run haptic haptic_integration

@@ -1,0 +1,54 @@
+# ============================================================
+# dataset_config.yaml
+# Configuration for the data logger (addverb_vla_datacollection
+# compatible Parquet + JPEG format).
+# ============================================================
+
+# ── Dataset Layout ────────────────────────────────────────────
+dataset:
+  name: "syncro5_dataset"              # Top-level output folder name
+  root: "/vla_dataset"         # Absolute path; override via CLI --repo_root
+  codebase_version: "v3.0"                 # Written to meta/info.json
+  robot_type: "syncro5"           # Written to meta/info.json
+
+# ── DOF Configuration ─────────────────────────────────────────
+# addverb_follower URDF layout in sim (matches the hardware protocol):
+#   [0..5] link_1..link_6  (arm, radians)
+#   [6]    slide_1_joint   (gripper drive, metres)
+# slide_2_joint mirrors -slide_1 every sim step (enforced by the env
+# subclass — see addverb_env_cfg.AddverbTeleopEnv) so it is redundant in
+# the dataset and intentionally not logged.
+# state.joint_positions = [j0..j5, slide_1] = 7 floats
+# action.robot          = same 7 floats
+# base_obs/act_dim stay at 0 (no mobile base).
+dof:
+  num_arms: 1
+  joints_per_arm: 6                # Pure arm joints (excludes gripper)
+  gripper_dim: 1                   # slide_1 only (slide_2 is auto-mirrored)
+  arm_joint_dim: 7                 # joints_per_arm + gripper_dim
+  base_obs_dim: 0                  # No mobile base — set 2 to match addverb_vla schema
+  base_act_dim: 0
+  joint_dim: 7                     # arm_joint_dim + base_obs_dim = 7 + 0 (observation.state.joint_positions)
+  action_dim: 7                    # arm_joint_dim + base_act_dim = 7 + 0 (action.robot)
+
+# ── Image Settings ────────────────────────────────────────────
+images:
+  log_width: 320             # Resize to this width before saving JPEG
+  log_height: 320            # Resize to this height before saving JPEG
+  jpeg_quality: 95           # JPEG compression quality (1-100)
+  cameras:                   # Camera names to record (keys used in visual_obs dict)
+    - "ego"
+    - "external"
+
+# ── Logging Rate ──────────────────────────────────────────────
+logging:
+  # Matches the canonical addverb_vla_datacollection rate so sim episodes
+  # drop straight into datasets that mix real + sim data.
+  rate_hz: 30.0              # Dataset frames per second
+  debug_freq_hz: 1.0         # Max frequency of console debug prints
+  max_queue_depth: 500       # Internal frame queue depth before oldest frames dropped
+
+# ── Task Definitions ──────────────────────────────────────────
+# Each entry: [start_episode, end_episode, task_name, task_prompt]
+task_ranges:
+  - [0, 9999, "Manipulation", "Pick up the object and place it in the designated location."]
