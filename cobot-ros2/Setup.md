@@ -74,7 +74,7 @@ colcon build --executor sequential
 
 # To switch branch:
 ```bash
-cd ~/cobot_ros2_ws/src/cobot_ros2/
+cd ~/cobot_ros2_ws/src/Syncro_5/
 # to check branch
 git branch
 # to switch branch

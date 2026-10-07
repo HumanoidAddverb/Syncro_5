@@ -11,13 +11,13 @@ cd ~/cobot_ros2_ws/src/
 ### step 2: clone the repository
 ```bash
 git clone https://github.com/HumanoidAddverb/Syncro_5.git
-
+cd Syncro_5
 git switch dual_arm
 ```
 
 ### Step 3: Copy Backend Folders
 
-Move the backend folders to the installation directory:
+Move the backend folders to the installation directory (run from inside `~/cobot_ros2_ws/src/Syncro_5`):
 ```bash
 sudo mkdir -p /opt/addverb/
 sudo cp -r dual_arm_backend /opt/addverb/
@@ -27,7 +27,7 @@ sudo cp -r dual_arm_backend /opt/addverb/
 
 ### step 4: (OPTIONAL) Delete the dual_arm_backend folder from the cobot_ros2_ws 
 ```bash
-rm -rf ~/cobot_ros2_ws/src/cobot_ros2/dual_arm_backend
+rm -rf ~/cobot_ros2_ws/src/Syncro_5/dual_arm_backend
 ``` 
 
 
@@ -40,7 +40,8 @@ After installation, your directory structure should look like:
 
 ~/cobot_ros2_ws/
 └── src/
-    └── cobot_ros2/
+    └── Syncro_5/
+        └── cobot-ros2/
 ```
 ## To set up ROS2 work space
 * Refer to the [Setup.md](cobot-ros2/Setup.md) file inside the cobot-ros2 directory to build and configure the ROS2 workspace.

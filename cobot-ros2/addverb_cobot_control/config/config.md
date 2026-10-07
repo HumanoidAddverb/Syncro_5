@@ -4,10 +4,9 @@
 
 0. No Gripper
 1. Dynamixel Gripper
-2. Robotiq Gripper
-3. DH Gripper
-4. Suction Gripper
-5. Feetech Gripper
+2. DH Gripper
+3. Suction Gripper
+4. Feetech Gripper (only type currently accepted)
 
 # Force torque sensor:
 
