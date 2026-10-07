@@ -148,13 +148,13 @@ You can run controllers in two methods :
 ```bash
 ros2 run examples <desired demo>
 ```
-Activate the desired controller and replace `<desired demo>` with the one you want to run. The demos could be found in the examples folder. The demos are separated with single arm demos and dual arm demos. The dual arm demos start with `dula_arm_<demo_name>`
+Activate the desired controller and replace `<desired demo>` with the one you want to run. The demos could be found in the examples folder. The demos are separated with single arm demos and dual arm demos. The dual arm demos are in `examples/src/dual_arm` (e.g. `dual_arm_joint_ptp`, `go_to_home`, `demo_pick_and_place`)
 
-- **`<desired demo>`** → executable name (e.g., `demo_ptp`).  
+- **`<desired demo>`** → executable name (e.g., `demo_ptp_joint`).  
 
 *Example*
 ```bash
-ros2 run examples demo_ptp
+ros2 run examples demo_ptp_joint
 ```
 
 #### **Method 2**: Through User Defined Inputs (CLI commands)
@@ -170,7 +170,7 @@ Replace `<action server name>` with one of the following and specify with arm th
 2. cartesian_impedance_controller → `/arm_1_cartesian_impedance_controller/follow_joint_trajectory`  
 3. joint_impedance_controller → `/arm_1_joint_impedance_controller/follow_joint_trajectory`  
 4. ptp_tcp_controller → `/arm_1_ptp_tcp_controller/follow_cartesian_trajectory`  
-5. recorder_controller → `/arm_1_recorder_controller/replay_mode`  
+5. recorder_controller → `/arm_1_recorder_controller/recorder_controller/replay_mode`  
 The above examples send the command to `arm_1`
 
 *You can find the `<message type>` and `<message content>` for each controller from the provided user manual.*
@@ -240,11 +240,11 @@ ros2 action send_goal /arm_1_recorder_controller/recorder_controller/replay_mode
 
 ***Open gripper***
 ```bash
-ros2 service call /arm_1_gripper_controller/command addverb_cobot_msgs/srv/Gripper"{position: 1.0, grasp_force: 100.0}"
+ros2 service call /arm_1_gripper_controller/command addverb_cobot_msgs/srv/Gripper "{position: 1.0, grasp_force: 100.0}"
 ```
 ***Close gripper***
 ```bash
-ros2 service call /arm_1_]gripper_controller/command addverb_cobot_msgs/srv/Gripper"{position: 0.0, grasp_force: 0.0}"
+ros2 service call /arm_1_gripper_controller/command addverb_cobot_msgs/srv/Gripper "{position: 0.0, grasp_force: 0.0}"
 ```
 ### Error Recovery Service
 In case of any error, and the robot becomes irresponsive. Call the error recovery service by using the following command:
@@ -262,7 +262,7 @@ A moveit package has also been made for the dual arm setup. To run the package, 
 
 *Terminal 1*
 ```bash
-ros2 ros2 launch dual_arm_moveit_config move_group.launch.py 
+ros2 launch dual_arm_moveit_config move_group.launch.py 
 ```
 *Terminal 2*
 ```bash

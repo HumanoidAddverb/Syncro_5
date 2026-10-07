@@ -15,15 +15,15 @@ public:
   RecorderClient() : Node("demo_recorder_dual")
   {
     // Service clients
-    record_client_arm1_ = this->create_client<RecordSrv>("/arm_1_recorder_controller/record_mode");
-    record_client_arm2_ = this->create_client<RecordSrv>("/arm_2_recorder_controller/record_mode");
+    record_client_arm1_ = this->create_client<RecordSrv>("/arm_1_recorder_controller/recorder_controller/record_mode");
+    record_client_arm2_ = this->create_client<RecordSrv>("/arm_2_recorder_controller/recorder_controller/record_mode");
 
     // Action clients
     replay_client_arm1_ = rclcpp_action::create_client<ReplayAction>(
-        this, "/arm_1_recorder_controller/replay_mode");
+        this, "/arm_1_recorder_controller/recorder_controller/replay_mode");
 
     replay_client_arm2_ = rclcpp_action::create_client<ReplayAction>(
-        this, "/arm_2_recorder_controller/replay_mode");
+        this, "/arm_2_recorder_controller/recorder_controller/replay_mode");
   }
 
   void run()

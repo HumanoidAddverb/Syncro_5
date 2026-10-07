@@ -96,12 +96,12 @@ private:
 
         // Joint names per arm
         std::vector<std::string> arm1_joints = {
-            "arm1_joint1", "arm1_joint2", "arm1_joint3",
-            "arm1_joint4", "arm1_joint5", "arm1_joint6"};
+            "arm_1_joint1", "arm_1_joint2", "arm_1_joint3",
+            "arm_1_joint4", "arm_1_joint5", "arm_1_joint6"};
 
         std::vector<std::string> arm2_joints = {
-            "arm2_joint1", "arm2_joint2", "arm2_joint3",
-            "arm2_joint4", "arm2_joint5", "arm2_joint6"};
+            "arm_2_joint1", "arm_2_joint2", "arm_2_joint3",
+            "arm_2_joint4", "arm_2_joint5", "arm_2_joint6"};
 
         auto goal_arm1 = create_goal(arm1_joints);
         auto goal_arm2 = create_goal(arm2_joints);
