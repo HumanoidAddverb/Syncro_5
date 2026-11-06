@@ -1,6 +1,6 @@
 # Assets: index of important files
 
-One page with links to the files you will most often need in the Syncro_5 repo (`main` branch). Links are relative to this page (`assets/`). ROS 2 packages live under [cobot_ros2/](../cobot_ros2/), and the prebuilt backend under [cobot_backend/](../cobot_backend/). The Heal arm has its own `heal` branch; Heal files that remain on `main` are listed under [Legacy Heal files](#legacy-heal-files).
+One page with links to the files you will most often need in the Syncro_5 repo (`main` branch). Links are relative to this page (`assets/`). ROS 2 packages live under [cobot_ros2/](../cobot_ros2/), and the prebuilt backend under [cobot_backend/](../cobot_backend/). The Heal arm has its own `heal` branch; Heal files that remain on `main` are listed under [Legacy Heal files](#legacy-heal-files). A pure-Python client with no ROS dependency lives on the separate `python_examples` branch; see [Pure Python, no ROS](#pure-python-no-ros-cobot_py-on-the-python_examples-branch).
 
 ## Docs: start here
 
@@ -112,6 +112,25 @@ Entry points: [setup.py](../cobot_ros2/py_examples/setup.py)
 | [sim_data_logger.py](../cobot_ros2/py_examples/py_examples/isaacsim_teleop/sim_data_logger.py) · [data_logger_config.yaml](../cobot_ros2/py_examples/py_examples/isaacsim_teleop/data_logger_config.yaml) · [metadata_utils_parquet.py](../cobot_ros2/py_examples/py_examples/isaacsim_teleop/metadata_utils_parquet.py) | Logging to Parquet |
 | [extract_state_action.py](../cobot_ros2/py_examples/py_examples/isaacsim_teleop/extract_state_action.py) · [validate_data.py](../cobot_ros2/py_examples/py_examples/isaacsim_teleop/validate_data.py) · [view_parquet.py](../cobot_ros2/py_examples/py_examples/isaacsim_teleop/view_parquet.py) | Post-processing and inspection |
 | [requirements.txt](../cobot_ros2/py_examples/py_examples/isaacsim_teleop/requirements.txt) | Python dependencies |
+
+## Pure Python, no ROS (`cobot_py`, on the `python_examples` branch)
+
+`cobot_py` talks to the robot backend directly from Python, without ROS 2. It is not on `main`: it lives on the separate [`python_examples`](https://github.com/HumanoidAddverb/Syncro_5/tree/python_examples) branch, so the links below open that branch on GitHub. To get it locally:
+
+```bash
+git fetch origin
+git switch python_examples
+```
+
+| Path | Purpose |
+|---|---|
+| [README.md](https://github.com/HumanoidAddverb/Syncro_5/blob/python_examples/README.md) | Install, wire protocol, connection troubleshooting, mapping to the C++ it replaces |
+| [Setup.md](https://github.com/HumanoidAddverb/Syncro_5/blob/python_examples/Setup.md) | Robot docker, `cobot_backend` install to `/opt/addverb/`, `ip.csv`, `cobot_py` install, Wi-Fi |
+| [cobot_py/pyproject.toml](https://github.com/HumanoidAddverb/Syncro_5/blob/python_examples/cobot_py/pyproject.toml) | Package definition (install from `cobot_py/` with `python3 -m pip install -e ".[dev]"`) |
+| [cobot_py/src/cobot/](https://github.com/HumanoidAddverb/Syncro_5/tree/python_examples/cobot_py/src/cobot) | Library: `robot.py` (high-level API), `session.py`, `link.py`, `transport.py`, `messages.py`, `enums.py`, `errors.py`, `limits.py`, `config.py`, `diagnose.py` |
+| [cobot_py/examples/](https://github.com/HumanoidAddverb/Syncro_5/tree/python_examples/cobot_py/examples) | `01_read_state` · `02_move_to` · `03_velocity_stream` · `04_jog_and_gripper` · `05_teach_and_replay` |
+| [cobot_py/tools/fake_robot.py](https://github.com/HumanoidAddverb/Syncro_5/blob/python_examples/cobot_py/tools/fake_robot.py) | Simulator for testing without the robot |
+| [cobot_py/notebooks/robot_walkthrough.ipynb](https://github.com/HumanoidAddverb/Syncro_5/blob/python_examples/cobot_py/notebooks/robot_walkthrough.ipynb) | Step-by-step walkthrough notebook |
 
 ## MoveIt (`addverb_moveit_configs`)
 
