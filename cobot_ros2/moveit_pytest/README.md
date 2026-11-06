@@ -58,7 +58,7 @@ To run MoveIt in simulation mode with RViz, launch:
     ros2 launch syncro demo.launch.py
 
     # with gripper
-    ros2 launch syncro_gripper demo_launch.py
+    ros2 launch syncro_gripper demo.launch.py
 
 This will start:
 - MoveIt

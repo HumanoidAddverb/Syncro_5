@@ -29,7 +29,7 @@ sudo cp -r cobot_backend /opt/addverb/
 
 ### step 4: (OPTIONAL) Delete the cobot_backend folder from the cobot_ros2_ws 
 ```bash
-rm -rf ~/cobot_ros2_ws/src/cobot_ros2/cobot_backend
+rm -rf ~/cobot_ros2_ws/src/Syncro_5/cobot_backend
 ``` 
 
 

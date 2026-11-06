@@ -127,11 +127,11 @@ ros2 run examples <desired demo>
 Activate the desired controller and replace `<desired demo>` with the one you want to run.  
 *(The list of available demos can be found in the provided user manual).*
 
-- **`<desired demo>`** → executable name (e.g., `demo_ptp`).  
+- **`<desired demo>`** → executable name (e.g., `demo_ptp_joint`).  
 
 *Example*
 ```bash
-ros2 run examples demo_ptp
+ros2 run examples demo_ptp_joint
 ```
 
 #### **Method 2**: Through User Defined Inputs (CLI commands)
