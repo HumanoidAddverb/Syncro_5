@@ -1,9 +1,0 @@
-<library path="cobot_hw_interface">
-  <class name="addverb_cobot/CobotHWInterface"
-         type="addverb_cobot::CobotHWInterface"
-         base_class_type="hardware_interface::SystemInterface">
-    <description>
-      ROS2 control hardware interface for addverb cobot
-    </description>
-  </class>
-</library>

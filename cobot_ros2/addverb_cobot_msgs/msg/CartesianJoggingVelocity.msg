@@ -1,1 +1,0 @@
-float64[] axisvel_scaling_factor

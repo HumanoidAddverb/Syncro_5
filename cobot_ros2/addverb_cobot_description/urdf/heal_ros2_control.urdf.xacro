@@ -1,7 +1,0 @@
-<?xml version="1.0"?>
-<robot name="robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
-
-  <xacro:include filename="$(find addverb_cobot_description)/urdf/heal.urdf.xacro"/>
-
-  <xacro:include filename="$(find addverb_cobot_description)/ros2_control/heal.ros2_control.xacro"/>
-</robot>

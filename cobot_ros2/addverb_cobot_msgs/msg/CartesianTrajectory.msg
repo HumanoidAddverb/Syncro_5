@@ -1,1 +1,0 @@
-CartesianTrajectoryPoint[] points

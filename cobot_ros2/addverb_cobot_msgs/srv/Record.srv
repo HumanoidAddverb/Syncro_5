@@ -1,6 +1,0 @@
-bool enable
-string label
-int32 rate
----
-string message
-bool status
